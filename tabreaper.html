@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="tabreaper.css"/>
+  </head>
+
+  <body>
+    <div class="panel">
+      <div class="panel-section panel-section-header">
+        <div class="text-section-header">Tab Reaper</div>
+      </div>
+
+      <input type="text" placeholder="Close tabs with URLs matching" id="matching-url"/>
+      <br/>
+
+      <input type="checkbox" id="not-pinned" checked>Don't close pinned tabs</input>
+
+      <div class="panel">
+        <input type="radio" name="match-type" value="url" id="match-url" checked> URL<br>
+        <input type="radio" name="match-type" value="title" id="match-title"> Title
+      </div>
+
+      <br/>
+      <button>Close them!</button>
+    </div>
+
+  <script src="tabreaper.js"></script>
+</body>
+
+</html>

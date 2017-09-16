@@ -1,0 +1,13 @@
+{
+  "browser_action": {
+    "browser_style": true,
+    "default_title": "Tab Reaper",
+    "default_popup": "tabreaper.html"
+  },
+  "permissions": ["tabs"],
+  "description": "Bulk close tabs with matching URLs or names.",
+  "homepage_url": "https://github.com/whitty/tabreaper",
+  "manifest_version": 2,
+  "name": "Tab Reaper",
+  "version": "1.0"
+}
