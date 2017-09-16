@@ -12,18 +12,28 @@
         <div class="text-section-header">Tab Reaper</div>
       </div>
 
-      <input type="text" placeholder="Close tabs with URLs matching" id="matching-url"/>
-      <br/>
+      <div class="panel-section panel-section-formElements browser-style">
+        <div class="panel-formElements-item">
 
-      <input type="checkbox" id="not-pinned" checked>Don't close pinned tabs</input>
+          <label>Match against: </label>
+          <input type="radio" name="match-type" value="url" id="match-url" checked> <label>URL</label>
+          <input type="radio" name="match-type" value="title" id="match-title"> <label>Title</label>
+        </div>
 
-      <div class="panel">
-        <input type="radio" name="match-type" value="url" id="match-url" checked> URL<br>
-        <input type="radio" name="match-type" value="title" id="match-title"> Title
+        <div class="panel-formElements-item">
+          <label>Match:</label>
+          <input type="text" placeholder="Close tabs matching" id="matching-url"/>
+        </div>
+
+        <div class="panel-formElements-item">
+          <input type="checkbox" id="not-pinned" checked></input><label>Don't close pinned tabs</label>
+        </div>
+
+        <div class="panel-formElements-item">
+          <button class="browser-style" id="close-button">Close them!</button>
+        </div>
       </div>
 
-      <br/>
-      <button>Close them!</button>
     </div>
 
   <script src="tabreaper.js"></script>
