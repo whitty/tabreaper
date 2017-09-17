@@ -2,8 +2,8 @@ var matching = document.querySelector('#matching-url');
 var not_pinned = document.querySelector('#not-pinned');
 var button = document.querySelector('button');
 
-// set to true to skip closing - just print what we'd doo
-var debug_mode = true;
+// set to true to skip closing - just print what we'd do
+var debug_mode = false;
 
 // set default and update value
 button.disabled = !matching.value;
