@@ -11,11 +11,24 @@ matching.addEventListener("input", (e) => {
   button.disabled = !matching.value;
 });
 
+// switch tabs on select
+var tabs = document.querySelectorAll('.panel-section-tabs-button');
+tabs.forEach((this_tab) => { this_tab.addEventListener("click", (e) => {
+  tabs.forEach((tab) => {
+    tab.classList.remove("selected");
+    tab.classList.remove("select"); // temporary workaround
+    document.querySelector("#" + tab.getAttribute("target")).style.display="none";
+  });
+  this_tab.classList.add("selected");
+  this_tab.classList.add("select"); // temporary workaround
+  document.querySelector("#" + this_tab.getAttribute("target")).style.display="inline";
+})});
+
 button.addEventListener("click", (e) => {
   let match = matching.value;
   if (match) {
     let n_pinned = not_pinned.checked;
-    let by_title = document.querySelector('#match-title').checked;
+    let by_title = document.querySelector('#title-form-tab').classList.contains("selected");
 
     // get current window with tabs
     browser.windows.getCurrent({populate: true}).then((window) => {

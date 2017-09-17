@@ -12,21 +12,27 @@
         <div class="text-section-header">Tab Reaper</div>
       </div>
 
+      <div class="panel-section panel-section-tabs">
+        <!-- NOTE broken CSS inserts browser-style inside 'selected' to give select and browser-styleed -->
+        <div class="panel-section-tabs-button selected browser-styled select browser-styleed" target="url-form" id="url-form-tab">URL</div>
+        <div class="panel-section-tabs-separator"></div>
+        <div class="panel-section-tabs-button browser-styled browser-styleed" target="title-form" id="title-form-tab">Title</div>
+      </div>
+
       <div class="panel-section panel-section-formElements browser-style">
-        <div class="panel-formElements-item">
-
-          <label>Match against: </label>
-          <input type="radio" name="match-type" value="url" id="match-url" checked> <label>URL</label>
-          <input type="radio" name="match-type" value="title" id="match-title"> <label>Title</label>
-        </div>
 
         <div class="panel-formElements-item">
-          <label>Match:</label>
+          <label for="matching-url">Match:</label>
           <input type="text" placeholder="Close tabs matching" id="matching-url"/>
         </div>
 
+        <div id="url-form">
+        </div>
+        <div id="title-form" style="display:none">
+        </div>
+
         <div class="panel-formElements-item">
-          <input type="checkbox" id="not-pinned" checked></input><label>Don't close pinned tabs</label>
+          <input type="checkbox" id="not-pinned" checked></input><label for="not-pinned">Don't close pinned tabs</label>
         </div>
 
         <div class="panel-formElements-item">
