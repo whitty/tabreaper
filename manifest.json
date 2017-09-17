@@ -2,9 +2,14 @@
   "browser_action": {
     "browser_style": true,
     "default_title": "Tab Reaper",
+    "default_icon": "icons/tab-reap.svg",
     "default_popup": "tabreaper.html"
   },
   "permissions": ["tabs"],
+  "icons": {
+    "48": "icons/tab-reap.svg",
+    "96": "icons/tab-reap.svg"
+  },
   "description": "Bulk close tabs with matching URLs or names.",
   "homepage_url": "https://github.com/whitty/tabreaper",
   "manifest_version": 2,
