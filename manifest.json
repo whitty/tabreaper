@@ -1,4 +1,9 @@
 {
+  "applications": {
+    "gecko": {
+      "id": "{24b5f6bc-e0d1-4cef-9084-96c9e0743744}"
+    }
+  },
   "browser_action": {
     "browser_style": true,
     "default_title": "Tab Reaper",
