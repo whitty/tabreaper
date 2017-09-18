@@ -8,6 +8,8 @@ tabreaper.zip:					\
 	tabreaper.css				\
 	tabreaper.html				\
 	tabreaper.js				\
+	icons/tab-reap-light.svg		\
+	icons/tab-reap-dark.svg			\
 	icons/tab-reap.svg
 	rm -f $@
 	zip -r -FS $@ $^

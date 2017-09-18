@@ -8,6 +8,15 @@
     "browser_style": true,
     "default_title": "Tab Reaper",
     "default_icon": "icons/tab-reap.svg",
+    "theme_icons": [
+      { "light": "icons/tab-reap-light.svg",
+        "dark": "icons/tab-reap-dark.svg",
+        "size": 16
+      },
+      { "light": "icons/tab-reap-light.svg",
+        "dark": "icons/tab-reap-dark.svg",
+        "size": 32
+      } ],
     "default_popup": "tabreaper.html"
   },
   "permissions": ["tabs"],
