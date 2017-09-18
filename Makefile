@@ -12,7 +12,12 @@ tabreaper.zip:					\
 	rm -f $@
 	zip -r -FS $@ $^
 
-all: icons/tab-reap-solid.svg
+all:						\
+	icons/tab-reap-light.svg		\
+	icons/tab-reap-dark.svg
 
-icons/tab-reap-solid.svg: icons/tab-reap.svg
-	sed 's/context-fill/rgba(12, 12, 13, .8)/' $< > $@
+icons/tab-reap-dark.svg: icons/tab-reap.svg $(MAKEFILE_LIST)
+	sed 's/context-fill/#4a4a4f/' $< > $@
+
+icons/tab-reap-light.svg: icons/tab-reap.svg $(MAKEFILE_LIST)
+	sed 's/context-fill/#f9f9fa/' $< > $@
