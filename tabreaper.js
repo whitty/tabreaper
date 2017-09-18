@@ -2,15 +2,11 @@ var matching = document.querySelector('#matching-url');
 var not_pinned = document.querySelector('#not-pinned');
 var case_sensitive = document.querySelector('#case-sensitive');
 var close_button = document.querySelector('#close-button');
+var match_count = document.querySelector('#match-count');
+var summary = document.querySelector('#summary');
 
 // set to true to skip closing - just print what we'd do
 var debug_mode = false;
-
-// set default and update value
-close_button.disabled = !matching.value;
-matching.addEventListener("input", (e) => {
-  close_button.disabled = !matching.value;
-});
 
 // switch tabs on select
 var tabs = document.querySelectorAll('.panel-section-tabs-button');
@@ -23,6 +19,7 @@ tabs.forEach((this_tab) => { this_tab.addEventListener("click", (e) => {
   this_tab.classList.add("selected");
   this_tab.classList.add("select"); // temporary workaround
   document.querySelector("#" + this_tab.getAttribute("target")).style.display="inline";
+  update_summary();
 })});
 
 function match_tabs(args) {
@@ -80,11 +77,34 @@ function close_matched() {
   }
 }
 
+function update_summary() {
+  let args = get_args();
+  if (args.match) {
+    summary.style.display = "inline";
+    match_tabs(args).then((matched) => {
+      close_button.disabled = matched.length == 0;
+      match_count.textContent = matched.length;
+    });
+  } else {
+    summary.style.display  = "none";
+    close_button.disabled = true;
+  }
+}
+
+// initialise state
+update_summary();
+// update summary on all input updates
+[matching, case_sensitive, not_pinned].forEach((inp) => {
+  inp.addEventListener("input", (e) => {
+    update_summary();
+  })
+});
+
 close_button.addEventListener("click", (e) => {
   close_matched();
 });
 
-matching.addEventListener("keypress", (e) => {
+matching.addEventListener("keyup", (e) => {
   if (e.key == "Enter" && matching.value)
     close_button.click();
 });
