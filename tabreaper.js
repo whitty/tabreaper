@@ -83,3 +83,8 @@ function close_matched() {
 close_button.addEventListener("click", (e) => {
   close_matched();
 });
+
+matching.addEventListener("keypress", (e) => {
+  if (e.key == "Enter" && matching.value)
+    close_button.click();
+});
