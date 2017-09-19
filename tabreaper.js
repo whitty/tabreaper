@@ -1,15 +1,15 @@
 var matching = document.querySelector('#matching-url');
 var not_pinned = document.querySelector('#not-pinned');
 var case_sensitive = document.querySelector('#case-sensitive');
-var button = document.querySelector('button');
+var close_button = document.querySelector('#close-button');
 
 // set to true to skip closing - just print what we'd do
 var debug_mode = false;
 
 // set default and update value
-button.disabled = !matching.value;
+close_button.disabled = !matching.value;
 matching.addEventListener("input", (e) => {
-  button.disabled = !matching.value;
+  close_button.disabled = !matching.value;
 });
 
 // switch tabs on select
@@ -80,6 +80,6 @@ function close_matched() {
   }
 }
 
-button.addEventListener("click", (e) => {
+close_button.addEventListener("click", (e) => {
   close_matched();
 });
