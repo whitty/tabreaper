@@ -25,35 +25,61 @@ tabs.forEach((this_tab) => { this_tab.addEventListener("click", (e) => {
   document.querySelector("#" + this_tab.getAttribute("target")).style.display="inline";
 })});
 
-button.addEventListener("click", (e) => {
-  let match = matching.value;
-  if (match) {
-    let n_pinned = not_pinned.checked;
-    let by_title = document.querySelector('#title-form-tab').classList.contains("selected");
-    let sensitive = by_title ? case_sensitive.checked : true;
+function match_tabs(args) {
 
-    if (!sensitive)
-      match = match.toLowerCase();
+  let match = args.match;
+  if (!args.sensitive)
+    match = match.toLowerCase();
 
-    // get current window with tabs
-    browser.windows.getCurrent({populate: true}).then((window) => {
+  // get current window with tabs
+  return browser.windows.getCurrent({populate: true}).then((window) => {
 
-      for (var i = 0; i < window.tabs.length; i++) {
-        let t = window.tabs[i];
-        let val = by_title ? t.title : t.url; // TODO - title should be case insensitive
+    let matched = [];
+ 
+    for (var i = 0; i < window.tabs.length; i++) {
+      let t = window.tabs[i];
+      let val = args.by_title ? t.title : t.url; // TODO - title should be case insensitive
 
-        if (!sensitive)
-          val = val.toLowerCase();
+      if (!args.sensitive)
+        val = val.toLowerCase();
 
-        if (val.includes(match)) {
-          if (!n_pinned || !t.pinned) {
-            if (debug_mode)
-              console.log("closed tab: " + t.url);
-            else
-              browser.tabs.remove(t.id);
-          }
+      if (val.includes(match)) {
+        if (!args.n_pinned || !t.pinned) {
+          matched.push(t);
         }
+      }
+    }
+    return matched;
+  });
+}
+
+// get args from form
+function get_args() {
+  let by_title = document.querySelector('#title-form-tab').classList.contains("selected");
+  return {
+    match: matching.value,
+    n_pinned: not_pinned.checked,
+    by_title: by_title,
+    sensitive: by_title ? case_sensitive.checked : true
+  };
+}
+
+// the main closer
+function close_matched() {
+  let args = get_args();
+  if (args.match) {
+    match_tabs(args).then((matched) => {
+      for (var i = 0; i < matched.length; ++i) {
+        let t = matched[i];
+        if (debug_mode)
+          console.log("closed tab: " + t.url);
+        else
+          browser.tabs.remove(t.id);
       }
     });
   }
+}
+
+button.addEventListener("click", (e) => {
+  close_matched();
 });
