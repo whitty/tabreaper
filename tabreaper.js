@@ -73,6 +73,9 @@ function close_matched() {
         else
           browser.tabs.remove(t.id);
       }
+      matching.value = "";
+      matching.focus();
+      update_summary();
     });
   }
 }
