@@ -37,3 +37,7 @@ NODE := $(firstword $(shell which nodejs) $(shell which node))
 
 test:
 	$(NODE) test/util_test.js
+
+.PHONY: build
+build: icons
+	web-ext build --overwrite-dest  --ignore-files="*~" "test"  "Makefile" "README.md" "icons/*.png"
