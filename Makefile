@@ -21,3 +21,7 @@ icons/tab-reap-dark.svg: icons/tab-reap.svg $(MAKEFILE_LIST)
 
 icons/tab-reap-light.svg: icons/tab-reap.svg $(MAKEFILE_LIST)
 	sed 's/context-fill/#f9f9fa/' $< > $@
+
+.PHONY: run
+run: icons
+	web-ext run
