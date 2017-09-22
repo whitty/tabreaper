@@ -11,3 +11,5 @@ Features:
  - Close by URL
  - Close by Title
  - Preserve your pinned tabs
+ - Choose case sensitivity
+ - Firefox 57 ready
