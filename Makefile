@@ -1,6 +1,6 @@
-.PHONY: all
+.PHONY: all icons
 
-all: tabreaper.zip
+all: icons tabreaper.zip
 
 tabreaper.zip:					\
 	LICENSE.txt				\
@@ -12,7 +12,7 @@ tabreaper.zip:					\
 	rm -f $@
 	zip -r -FS $@ $^
 
-all:						\
+icons:						\
 	icons/tab-reap-light.svg		\
 	icons/tab-reap-dark.svg
 
