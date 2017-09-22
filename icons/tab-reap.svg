@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 16 16">
   <!-- tab style copied from "Tab New 16" -->
   <!-- TODO - make the edges round instead of square -->
   <path name="tab" fill="context-fill" d="M14,8 v-3 a 2,2 0 0 0 -2,-2 h-8 a 2,2 0 0 0 -2,2 v6 h-1 a 1,1 0 0 0 0,2 h8 l1,-1 l-2,-2 l2,-2 l2,2 z"/>
