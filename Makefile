@@ -16,6 +16,7 @@ tabreaper.zip:					\
 
 icons:						\
 	icons/tab-reap-light.svg		\
+	icons/tab-reap-dark-64.png		\
 	icons/tab-reap-dark.svg
 
 icons/tab-reap-dark.svg: icons/tab-reap.svg $(MAKEFILE_LIST)
@@ -23,6 +24,9 @@ icons/tab-reap-dark.svg: icons/tab-reap.svg $(MAKEFILE_LIST)
 
 icons/tab-reap-light.svg: icons/tab-reap.svg $(MAKEFILE_LIST)
 	sed 's/context-fill/#f9f9fa/' $< > $@
+
+icons/tab-reap-dark-%.png: icons/tab-reap-dark.svg
+	rsvg-convert -w $* -a $< -o $@
 
 .PHONY: run
 run: icons
