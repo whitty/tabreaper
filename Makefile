@@ -1,4 +1,4 @@
-.PHONY: all icons
+.PHONY: all icons test
 
 all: icons tabreaper.zip
 
@@ -8,6 +8,7 @@ tabreaper.zip:					\
 	tabreaper.css				\
 	tabreaper.html				\
 	tabreaper.js				\
+	util.js					\
 	icons/tab-reap-light.svg		\
 	icons/tab-reap-dark.svg			\
 	icons/tab-reap.svg
@@ -31,3 +32,8 @@ icons/tab-reap-dark-%.png: icons/tab-reap-dark.svg
 .PHONY: run
 run: icons
 	web-ext run
+
+NODE := $(firstword $(shell which nodejs) $(shell which node))
+
+test:
+	$(NODE) test/util_test.js
