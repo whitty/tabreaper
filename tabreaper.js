@@ -101,6 +101,13 @@ function elipsisRow() {
   return tr;
 }
 
+function notFoundRow() {
+  let tr = document.createElement("div");
+  tr.setAttribute('class', 'summary-row summary-row-not-found');
+  tr.appendChild(document.createTextNode('Not found'));
+  return tr;
+}
+
 function update_summary() {
   let args = get_args();
   if (args.match) {
@@ -115,6 +122,8 @@ function update_summary() {
       });
       if (matched.length > max_summary_lines)
         table.appendChild(elipsisRow());
+      else if (matched.length == 0)
+        table.appendChild(notFoundRow());
     });
   } else {
     summary.style.display  = "none";

@@ -23,3 +23,9 @@
 .summary-row-elipsis {
   text-align: center;
 }
+
+.summary-row-not-found {
+  text-align: center;
+  font-style: italic;
+  opacity: 0.6;
+}
