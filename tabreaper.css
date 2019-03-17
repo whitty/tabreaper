@@ -1,1 +1,25 @@
-/* TODO */
+#match-count {
+  margin: 4px;
+}
+
+#summary-table {
+  max-width: 200px;
+  margin: 4px;
+}
+
+.summary-icon {
+  margin: 4px;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.summary-row {
+  text-overflow: clip ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.summary-row-elipsis {
+  text-align: center;
+}

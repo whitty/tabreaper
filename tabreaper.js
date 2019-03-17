@@ -4,9 +4,11 @@ var case_sensitive = document.querySelector('#case-sensitive');
 var close_button = document.querySelector('#close-button');
 var match_count = document.querySelector('#match-count');
 var summary = document.querySelector('#summary');
+var table = document.querySelector('#summary-table');
 
 // set to true to skip closing - just print what we'd do
 var debug_mode = false;
+var max_summary_lines = 10;
 
 // switch tabs on select
 var tabs = document.querySelectorAll('.panel-section-tabs-button');
@@ -80,6 +82,25 @@ function close_matched() {
   }
 }
 
+function summaryRow(tab) {
+  let tr = document.createElement("div");
+  tr.setAttribute('class', 'summary-row');
+  let ico = document.createElement("img");
+  ico.setAttribute('src', tab.favIconUrl);
+  ico.setAttribute('height', '16');
+  ico.setAttribute('class', 'summary-icon toolbarbutton-icon');
+  tr.appendChild(ico);
+  tr.appendChild(document.createTextNode(tab.title));
+  return tr;
+}
+
+function elipsisRow() {
+  let tr = document.createElement("div");
+  tr.setAttribute('class', 'summary-row summary-row-elipsis');
+  tr.appendChild(document.createTextNode('...'));
+  return tr;
+}
+
 function update_summary() {
   let args = get_args();
   if (args.match) {
@@ -87,6 +108,13 @@ function update_summary() {
     match_tabs(args).then((matched) => {
       close_button.disabled = matched.length == 0;
       match_count.textContent = matched.length;
+      while (table.firstChild)
+        table.removeChild(table.firstChild);
+      matched.slice(0, max_summary_lines).forEach((tab) => {
+        table.appendChild(summaryRow(tab));
+      });
+      if (matched.length > max_summary_lines)
+        table.appendChild(elipsisRow());
     });
   } else {
     summary.style.display  = "none";
