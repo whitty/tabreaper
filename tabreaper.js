@@ -82,7 +82,7 @@ function close_matched() {
   }
 }
 
-function summaryRow(tab, match) {
+function summaryRow(tab, args) {
   let tr = document.createElement("div");
   tr.setAttribute('class', 'summary-row');
   let ico = document.createElement("img");
@@ -90,7 +90,10 @@ function summaryRow(tab, match) {
   ico.setAttribute('height', '16');
   ico.setAttribute('class', 'summary-icon toolbarbutton-icon');
   tr.appendChild(ico);
-  tr.insertAdjacentHTML('beforeEnd', util.highlightSimpleMatch(tab.title, match));
+  let text = tab.title;
+  if (args.by_title)
+    text = util.highlightSimpleMatch(text, args.match, args.sensitive);
+  tr.insertAdjacentHTML('beforeEnd', text);
   return tr;
 }
 
@@ -118,7 +121,7 @@ function update_summary() {
       while (table.firstChild)
         table.removeChild(table.firstChild);
       matched.slice(0, max_summary_lines).forEach((tab) => {
-        table.appendChild(summaryRow(tab, args.match));
+        table.appendChild(summaryRow(tab, args));
       });
       if (matched.length > max_summary_lines)
         table.appendChild(elipsisRow());
