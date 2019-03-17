@@ -82,7 +82,7 @@ function close_matched() {
   }
 }
 
-function summaryRow(tab) {
+function summaryRow(tab, match) {
   let tr = document.createElement("div");
   tr.setAttribute('class', 'summary-row');
   let ico = document.createElement("img");
@@ -90,7 +90,7 @@ function summaryRow(tab) {
   ico.setAttribute('height', '16');
   ico.setAttribute('class', 'summary-icon toolbarbutton-icon');
   tr.appendChild(ico);
-  tr.appendChild(document.createTextNode(tab.title));
+  tr.insertAdjacentHTML('beforeEnd', util.highlightSimpleMatch(tab.title, match));
   return tr;
 }
 
@@ -118,7 +118,7 @@ function update_summary() {
       while (table.firstChild)
         table.removeChild(table.firstChild);
       matched.slice(0, max_summary_lines).forEach((tab) => {
-        table.appendChild(summaryRow(tab));
+        table.appendChild(summaryRow(tab, args.match));
       });
       if (matched.length > max_summary_lines)
         table.appendChild(elipsisRow());
