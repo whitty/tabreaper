@@ -1,0 +1,6 @@
+dist: xenial
+language: node_js
+script:
+  - make test
+node_js:
+  - "8"
