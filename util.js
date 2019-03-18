@@ -5,12 +5,19 @@
     return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
   }
 
-  // this only works for dumb straight text matches, not regex
-  exports.highlightSimpleMatch = function(text, match, caseSensitive = true) {
+  function reForMatch(match, caseSensitive) {
     let opts = 'g';
     if (!caseSensitive)
       opts += 'i';
-    return text.replace(new RegExp('('+escapeRegExp(match)+')', opts), '<span class="highlight">$1</span>');
+    return new RegExp('('+escapeRegExp(match)+')', opts);
+  }
+
+  // this only works for dumb straight text matches, not regex
+  exports.splitSimpleMatchForHighlight = function(text, match, caseSensitive = true) {
+    let re = reForMatch(match, caseSensitive);
+    return text.split(re).map(function(x) {
+      return [x, x.match(re) != null];
+    });
   }
 
   // more palaver
