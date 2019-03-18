@@ -82,6 +82,19 @@ function close_matched() {
   }
 }
 
+function applyHighlights(highlights, node) {
+  highlights.forEach(function(h) {
+    if (h[1]) {
+      let section = document.createElement('span');
+      section.setAttribute('class', 'highlight');
+      section.appendChild(document.createTextNode(h[0]));
+      node.appendChild(section);
+    } else {
+      node.appendChild(document.createTextNode(h[0]));
+    }
+  });
+}
+
 function summaryRow(tab, args) {
   let tr = document.createElement("div");
   tr.setAttribute('class', 'summary-row');
@@ -90,10 +103,11 @@ function summaryRow(tab, args) {
   ico.setAttribute('height', '16');
   ico.setAttribute('class', 'summary-icon toolbarbutton-icon');
   tr.appendChild(ico);
-  let text = tab.title;
-  if (args.by_title)
-    text = util.highlightSimpleMatch(text, args.match, args.sensitive);
-  tr.insertAdjacentHTML('beforeEnd', text);
+  if (args.by_title) {
+    applyHighlights(util.splitSimpleMatchForHighlight(tab.title, args.match, args.sensitive), tr);
+  } else {
+    tr.appendChild(document.createTextNode(tab.title));
+  }
   return tr;
 }
 
