@@ -1,9 +1,12 @@
+body {
+  width: 35rem;
+};
+
 #match-count {
   margin: 4px;
 }
 
 #summary-table {
-  max-width: 200px;
   margin: 4px;
 }
 
