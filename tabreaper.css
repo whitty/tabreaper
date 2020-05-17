@@ -7,7 +7,7 @@ body {
 }
 
 #summary-table {
-  margin: 4px;
+  width: 30rem;
 }
 
 #summary-table .highlight {
@@ -21,11 +21,18 @@ body {
 }
 
 .summary-row {
-  text-overflow: clip ellipsis;
   white-space: nowrap;
-  overflow: hidden;
   vertical-align: middle;
+  display: table-row;
+  max-width: 80%;
 }
+
+.summary-cell {
+  overflow-x: hidden;
+  text-overflow: clip ellipsis;
+  display: table-cell;
+  vertical-align: middle;
+};
 
 .summary-row-elipsis {
   text-align: center;

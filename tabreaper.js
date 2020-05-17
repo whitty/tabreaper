@@ -101,13 +101,17 @@ function summaryRow(tab, args) {
   let ico = document.createElement("img");
   ico.setAttribute('src', tab.favIconUrl);
   ico.setAttribute('height', '16');
-  ico.setAttribute('class', 'summary-icon toolbarbutton-icon');
+  ico.setAttribute('class', 'summary-cell summary-icon toolbarbutton-icon');
   tr.appendChild(ico);
+
+  let entry = document.createElement('span');
   if (args.by_title) {
-    applyHighlights(util.splitSimpleMatchForHighlight(tab.title, args.match, args.sensitive), tr);
+    applyHighlights(util.splitSimpleMatchForHighlight(tab.title, args.match, args.sensitive), entry);
   } else {
-    tr.appendChild(document.createTextNode(tab.title));
+    entry.appendChild(document.createTextNode(tab.title));
   }
+  entry.setAttribute('class', 'summary-cell')
+  tr.appendChild(entry)
   return tr;
 }
 
