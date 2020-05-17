@@ -34,7 +34,7 @@ function match_tabs(args) {
   return browser.windows.getCurrent({populate: true}).then((window) => {
 
     let matched = [];
- 
+
     for (var i = 0; i < window.tabs.length; i++) {
       let t = window.tabs[i];
       let val = args.by_title ? t.title : t.url; // TODO - title should be case insensitive
