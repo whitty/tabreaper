@@ -96,15 +96,37 @@ function applyHighlights(highlights, node) {
   });
 }
 
+function close_one(tab) {
+  if (debug_mode)
+    console.log("closed tab: " + tab.url);
+  else
+    browser.tabs.remove(tab.id).then(function() {
+      update_summary();
+    });
+}
+
 function summaryRow(tab, args) {
   let tr = document.createElement("div");
   tr.setAttribute('class', 'summary-row');
+
+  let ico_parent = document.createElement('div');
+  ico_parent.setAttribute('class', 'summary-close-icon-switcher summary-cell')
+
   let ico = document.createElement("img");
   let favIconUrl = tab.favIconUrl ? tab.favIconUrl : empty_icon;
   ico.setAttribute('src', favIconUrl);
   ico.setAttribute('height', '16');
-  ico.setAttribute('class', 'summary-cell summary-icon toolbarbutton-icon');
-  tr.appendChild(ico);
+  ico.setAttribute('class', 'summary-icon toolbarbutton-icon');
+  ico_parent.appendChild(ico);
+  tr.appendChild(ico_parent);
+
+  let close_ico = document.createElement('img');
+  close_ico.setAttribute('src', 'chrome://global/skin/icons/close.svg')
+  close_ico.setAttribute('class', 'summary-close');
+  close_ico.addEventListener("click", (e) => {
+    close_one(tab);
+  });
+  ico_parent.appendChild(close_ico);
 
   let entry = document.createElement('span');
   if (args.by_title) {

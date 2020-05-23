@@ -27,6 +27,50 @@ body {
   max-width: 80%;
 }
 
+.summary-close:hover {
+  background-color: hsla(0,0%,70%,.2);
+}
+
+/* space for icon + close-icon */
+.summary-close-icon-switcher {
+  float: left;
+/*  margin: 4px; */
+  display: block;
+  position: relative;
+}
+
+/* position close icon on top of the summary-icon */
+.summary-close-icon-switcher .summary-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.summary-row:hover .summary-icon {
+  opacity: 40%;
+}
+
+.summary-row:hover .summary-close {
+  visibility: visible;
+}
+
+.summary-close {
+  vertical-align: middle;
+  visibility: hidden;
+  width: 16px;
+  height: 16px;
+  margin: 4px;
+}
+
+/* from chrome:/skins/global/close-icon.css */
+/* otherwise the close.svg looks black */
+.summary-close {
+  -moz-context-properties: fill, fill-opacity;
+  color: inherit !important;
+  fill: currentColor;
+  fill-opacity: 0;
+}
+
 .summary-cell {
   overflow-x: hidden;
   text-overflow: clip ellipsis;
