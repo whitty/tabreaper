@@ -5,6 +5,7 @@ var close_button = document.querySelector('#close-button');
 var match_count = document.querySelector('#match-count');
 var summary = document.querySelector('#summary');
 var table = document.querySelector('#summary-table');
+var empty_icon = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"/>');
 
 // set to true to skip closing - just print what we'd do
 var debug_mode = false;
@@ -99,7 +100,8 @@ function summaryRow(tab, args) {
   let tr = document.createElement("div");
   tr.setAttribute('class', 'summary-row');
   let ico = document.createElement("img");
-  ico.setAttribute('src', tab.favIconUrl);
+  let favIconUrl = tab.favIconUrl ? tab.favIconUrl : empty_icon;
+  ico.setAttribute('src', favIconUrl);
   ico.setAttribute('height', '16');
   ico.setAttribute('class', 'summary-cell summary-icon toolbarbutton-icon');
   tr.appendChild(ico);
