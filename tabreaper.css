@@ -1,9 +1,19 @@
 body {
   width: 35rem;
+  overflow-x: hidden;
+  overflow-y: hidden;
 };
 
 #match-count {
   margin: 4px;
+}
+
+#summary-scrollbox {
+  max-height: 25rem;
+  max-width: 35rem;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  margin-bottom: 4px;
 }
 
 #summary-table {
@@ -17,14 +27,12 @@ body {
 .summary-icon {
   margin: 4px;
   vertical-align: middle;
-  display: inline-block;
 }
 
 .summary-row {
   white-space: nowrap;
   vertical-align: middle;
   display: table-row;
-  max-width: 80%;
 }
 
 .summary-close:hover {
@@ -86,4 +94,8 @@ body {
   text-align: center;
   font-style: italic;
   opacity: 0.6;
+}
+
+#close-button {
+  margin-top: 4px;
 }
