@@ -139,13 +139,6 @@ function summaryRow(tab, args) {
   return tr;
 }
 
-function elipsisRow() {
-  let tr = document.createElement("div");
-  tr.setAttribute('class', 'summary-row summary-row-elipsis');
-  tr.appendChild(document.createTextNode('...'));
-  return tr;
-}
-
 function notFoundRow() {
   let tr = document.createElement("div");
   tr.setAttribute('class', 'summary-row summary-row-not-found');
@@ -162,12 +155,10 @@ function update_summary() {
       match_count.textContent = matched.length;
       while (table.firstChild)
         table.removeChild(table.firstChild);
-      matched.slice(0, max_summary_lines).forEach((tab) => {
+      matched.forEach((tab) => {
         table.appendChild(summaryRow(tab, args));
       });
-      if (matched.length > max_summary_lines)
-        table.appendChild(elipsisRow());
-      else if (matched.length == 0)
+      if (matched.length == 0)
         table.appendChild(notFoundRow());
     });
   } else {
