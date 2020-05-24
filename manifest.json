@@ -19,6 +19,9 @@
       } ],
     "default_popup": "tabreaper.html"
   },
+  "options_ui": {
+    "page": "options.html"
+  },
   "permissions": [
     "storage",
     "tabs"
