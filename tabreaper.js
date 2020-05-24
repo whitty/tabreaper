@@ -45,16 +45,19 @@ tabs.forEach((this_tab) => { this_tab.addEventListener("click", (e) => {
   update_summary();
 })});
 
+function fetchTabs(args, fn) {
+  return browser.tabs.query({currentWindow: true});
+}
+
 function match_duplicates(args) {
 
   // get current window with tabs
-  return browser.windows.getCurrent({populate: true}).then((window) => {
+  return fetchTabs(args).then((tabs) => {
 
     let seen = {};
     let matched = [];
 
-    for (var i = 0; i < window.tabs.length; i++) {
-      let t = window.tabs[i];
+    for (let t of tabs) {
       if (t.url in seen) {
         if (args.n_pinned && t.pinned) {
           // this is pinned, check the stashed one
@@ -85,12 +88,11 @@ function match_tabs(args) {
     match = match.toLowerCase();
 
   // get current window with tabs
-  return browser.windows.getCurrent({populate: true}).then((window) => {
+  return fetchTabs(args).then((tabs) => {
 
     let matched = [];
 
-    for (var i = 0; i < window.tabs.length; i++) {
-      let t = window.tabs[i];
+    for (let t of tabs) {
       let val = args.by_title ? t.title : t.url; // TODO - title should be case insensitive
 
       if (!args.sensitive)
