@@ -2,6 +2,7 @@
 var matching = document.querySelector('#matching-url');
 // matching checkboxes
 var not_pinned = document.querySelector('#not-pinned');
+var pinned_policy_warning = document.querySelector('#pinned-policy-warning');
 var pinned_policy = "preserve";
 var case_sensitive = document.querySelector('#case-sensitive');
 var all_windows = document.querySelector('#all-windows');
@@ -90,6 +91,9 @@ function match_duplicates(args) {
 
     for (let t of tabs) {
       if (t.url in seen) {
+        if (t.pinned) {
+          args.pinned_match_count += 1;
+        }
         if (args.n_pinned && t.pinned) {
           // this is pinned, check the stashed one
           // if this isn't then discard it instead
@@ -130,6 +134,8 @@ function match_tabs(args) {
         val = val.toLowerCase();
 
       if (val.includes(match)) {
+        if (t.pinned)
+          args.pinned_match_count += 1;
         if (!args.n_pinned || !t.pinned) {
           matched.push(t);
         }
@@ -159,6 +165,7 @@ function get_args() {
     by_title: by_title,
     by_duplicate: by_duplicate,
     sensitive: by_title ? case_sensitive.checked : true,
+    pinned_match_count: 0,
   };
 }
 
@@ -259,6 +266,7 @@ function update_summary() {
       });
       if (matched.length == 0)
         table.appendChild(notFoundRow());
+
       if (args.by_duplicate) {
         if (matched.length == 0) {
           summary.style.display = "none";
@@ -268,6 +276,20 @@ function update_summary() {
           no_duplicates.style.display = "none";
         }
       }
+
+      if (args.pinned_match_count == 0 || (pinned_policy == "ask" && not_pinned.checked)) {
+        pinned_policy_warning.style.display = 'none';
+      } else {
+      pinned_policy_warning.classList.remove("highlight");
+        if (pinned_policy == "preserve") {
+          pinned_policy_warning.innerText = " (some pinned tabs were ignored)";
+        } else if (pinned_policy == "close_them" || (pinned_policy == "ask" && !not_pinned.checked)) {
+          pinned_policy_warning.innerText = " (pinned tabs will be closed!)";
+          pinned_policy_warning.classList.add("highlight");
+        }
+        pinned_policy_warning.style.display = "inline";
+      }
+
     });
   } else {
     summary.style.display = "none";

@@ -108,3 +108,7 @@ body {
 .panel-formElements-item-grouped {
   margin-bottom: 0px;
 }
+
+#pinned-policy-warning.highlight {
+  color: red;
+}
