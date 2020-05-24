@@ -2,6 +2,7 @@
 var matching = document.querySelector('#matching-url');
 // matching checkboxes
 var not_pinned = document.querySelector('#not-pinned');
+var pinned_policy = "preserve";
 var case_sensitive = document.querySelector('#case-sensitive');
 var all_windows = document.querySelector('#all-windows');
 
@@ -142,9 +143,18 @@ function match_tabs(args) {
 function get_args() {
   let by_title = document.querySelector('#title-form-tab').classList.contains("selected");
   let by_duplicate = document.querySelector('#duplicates-form-tab').classList.contains("selected");
+
+  let n_pinned;
+  if (pinned_policy == "preserve")
+    n_pinned = true;
+  else if (pinned_policy == "close_them")
+    n_pinned = false;
+  else
+    n_pinned = not_pinned.checked;
+
   return {
     match: matching.value,
-    n_pinned: not_pinned.checked,
+    n_pinned: n_pinned,
     all_windows: all_windows.checked,
     by_title: by_title,
     by_duplicate: by_duplicate,
@@ -292,4 +302,10 @@ close_button.addEventListener("click", (e) => {
 matching.addEventListener("keyup", (e) => {
   if (e.key == "Enter" && matching.value)
     close_button.click();
+});
+
+let values = {'pinned-tab-handling-selection': pinned_policy};
+browser.storage.local.get(values).then((result) => {
+  pinned_policy = result['pinned-tab-handling-selection'];
+  document.querySelector("#pinned-panel").style.display = pinned_policy == "ask" ? null : "none";
 });
