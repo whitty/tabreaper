@@ -19,7 +19,10 @@
       } ],
     "default_popup": "tabreaper.html"
   },
-  "permissions": ["tabs"],
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
   "icons": {
     "48": "icons/tab-reap.svg",
     "96": "icons/tab-reap.svg"

@@ -242,7 +242,17 @@ function update_summary() {
 update_summary();
 // update summary on all input updates
 [matching, case_sensitive, not_pinned, all_windows].forEach((inp) => {
+  // load checkboxes from storage
+  if (inp.type == 'checkbox') {
+    browser.storage.local.get({[inp.id]: inp.checked}).then((result) => {
+      inp.checked = result[inp.id];
+    });
+  }
   inp.addEventListener("input", (e) => {
+    // save updates to checkboxes to storage
+    if (e.target.type == 'checkbox') {
+      browser.storage.local.set({[e.target.id]: e.target.checked})
+    }
     update_summary();
   })
 });
