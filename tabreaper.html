@@ -14,11 +14,11 @@
 
       <div class="panel-section panel-section-tabs">
         <!-- NOTE broken CSS inserts browser-style inside 'selected' to give select and browser-styleed -->
-        <div class="panel-section-tabs-button selected browser-styled select browser-styleed" target="url-form" id="url-form-tab">URL</div>
+        <div class="panel-section-tabs-button selected browser-styled select browser-styleed" id="url-form-tab">URL</div>
         <div class="panel-section-tabs-separator"></div>
-        <div class="panel-section-tabs-button browser-styled browser-styleed" target="title-form" id="title-form-tab">Title</div>
+        <div class="panel-section-tabs-button browser-styled browser-styleed" show="title-form" id="title-form-tab">Title</div>
         <div class="panel-section-tabs-separator"></div>
-        <div class="panel-section-tabs-button browser-styled browser-styleed" target="duplicates-form" hide="matching-panel pinned-panel" id="duplicates-form-tab">Duplicates</div>
+        <div class="panel-section-tabs-button browser-styled browser-styleed" hide="matching-panel pinned-panel" id="duplicates-form-tab">Duplicates</div>
       </div>
 
       <div class="panel-section panel-section-formElements browser-style">
@@ -28,30 +28,23 @@
           <input type="text" placeholder="Close tabs matching" id="matching-url" autofocus/>
         </div>
 
-        <div id="url-form">
-        </div>
-        <div id="duplicates-form" style="display:none">
-          <div id="no-duplicates">
-            <label>No duplicates found</label>
-          </div>
-        </div>
-        <div id="title-form" style="display:none">
-          <div class="panel-formElements-item">
-            <input type="checkbox" id="case-sensitive"></input><label for="case-sensitive">Case sensitive title match</label>
-          </div>
+        <div id="no-duplicates" class="panel-formElements-item">
+          <label>No duplicates found</label>
         </div>
 
-        <div id="all-windows-panel">
-          <div class="panel-formElements-item">
-            <input type="checkbox" id="all-windows"></input><label for="all-windows">Look through all windows</label>
-          </div>
+        <div id="title-form" class="panel-formElements-item panel-formElements-item-grouped">
+          <input type="checkbox" id="case-sensitive"></input><label for="case-sensitive">Case sensitive title match</label>
         </div>
 
-        <div id="pinned-panel" class="panel-formElements-item">
+        <div id="all-windows-panel" class="panel-formElements-item panel-formElements-item-grouped">
+          <input type="checkbox" id="all-windows"></input><label for="all-windows">Look through all windows</label>
+        </div>
+
+        <div id="pinned-panel" class="panel-formElements-item panel-formElements-item-grouped">
           <input type="checkbox" id="not-pinned" checked></input><label for="not-pinned">Don't close pinned tabs</label>
         </div>
 
-        <div class="panel-formElements-item" id="summary" style="display:none">
+        <div class="panel-formElements-item" id="summary">
           <label>Matched <span id="match-count">0</span> tabs:</label>
           <div id="summary-scrollbox">
             <div id="summary-table">

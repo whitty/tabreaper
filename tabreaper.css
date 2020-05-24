@@ -20,6 +20,10 @@ body {
   width: 30rem;
 }
 
+#summary {
+  margin-top: 12px
+}
+
 #summary-table .highlight {
   font-weight: bold;
 }
@@ -98,4 +102,9 @@ body {
 
 #close-button {
   margin-top: 4px;
+}
+
+/* smoosh the checkboxes together */
+.panel-formElements-item-grouped {
+  margin-bottom: 0px;
 }

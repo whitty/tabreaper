@@ -26,12 +26,16 @@ tabs.forEach((this_tab) => { this_tab.addEventListener("click", (e) => {
   tabs.forEach((tab) => {
     tab.classList.remove("selected");
     tab.classList.remove("select"); // temporary workaround
-    document.querySelector("#" + tab.getAttribute("target")).style.display="none";
 
-    // restore any hides
+    // restore any "hide"s, hide any "shows"
     if (tab.getAttribute("hide")) {
       tab.getAttribute("hide").split(" ").forEach(function(id) {
-        document.querySelector("#" + id).style.display="";
+        document.querySelector("#" + id).style.display = null;
+      });
+    }
+    if (tab.getAttribute("show")) {
+      tab.getAttribute("show").split(" ").forEach(function(id) {
+        document.querySelector("#" + id).style.display = "none";
       });
     }
   });
@@ -41,12 +45,16 @@ tabs.forEach((this_tab) => { this_tab.addEventListener("click", (e) => {
   // update the UI
   this_tab.classList.add("selected");
   this_tab.classList.add("select"); // temporary workaround
-  document.querySelector("#" + this_tab.getAttribute("target")).style.display="inline";
 
-  // hide any elements marked as hides
+  // hide any elements marked as "hide"s, show any "show"s
   if (this_tab.getAttribute("hide")) {
     this_tab.getAttribute("hide").split(" ").forEach(function(id) {
       document.querySelector("#" + id).style.display="none";
+    });
+  }
+  if (this_tab.getAttribute("show")) {
+    this_tab.getAttribute("show").split(" ").forEach(function(id) {
+      document.querySelector("#" + id).style.display=null;
     });
   }
   update_summary();
@@ -230,6 +238,7 @@ function update_summary() {
   let args = get_args();
   if (args.match || args.by_duplicate) {
     summary.style.display = "inline";
+    no_duplicates.style.display = "none";
     match_tabs(args).then((matched) => {
       close_button.disabled = matched.length == 0;
       match_count.textContent = matched.length;
@@ -244,7 +253,7 @@ function update_summary() {
         if (matched.length == 0) {
           summary.style.display = "none";
           close_button.disabled = true;
-          no_duplicates.style.display = "inline";
+          no_duplicates.style.display = null;
         } else {
           no_duplicates.style.display = "none";
         }
@@ -253,6 +262,7 @@ function update_summary() {
   } else {
     summary.style.display = "none";
     close_button.disabled = true;
+    no_duplicates.style.display = "none";
   }
 }
 
