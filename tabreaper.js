@@ -219,6 +219,9 @@ function summaryRow(tab, args) {
 
   let ico = document.createElement("img");
   let favIconUrl = tab.favIconUrl ? tab.favIconUrl : empty_icon;
+  // avoid security warning accessing this tab favicon
+  if (favIconUrl == 'chrome://mozapps/skin/extensions/extension.svg')
+    favIconUrl = empty_icon;
   ico.setAttribute('src', favIconUrl);
   ico.setAttribute('height', '16');
   ico.setAttribute('class', 'summary-icon toolbarbutton-icon');
