@@ -3,6 +3,7 @@ var matching = document.querySelector('#matching-url');
 // matching checkboxes
 var not_pinned = document.querySelector('#not-pinned');
 var case_sensitive = document.querySelector('#case-sensitive');
+var all_windows = document.querySelector('#all-windows');
 
 // Output elements
 var close_button = document.querySelector('#close-button');
@@ -46,7 +47,10 @@ tabs.forEach((this_tab) => { this_tab.addEventListener("click", (e) => {
 })});
 
 function fetchTabs(args, fn) {
-  return browser.tabs.query({currentWindow: true});
+  let query = {};
+  if (!args.all_windows)
+    query['currentWindow'] = true;
+  return browser.tabs.query(query);
 }
 
 function match_duplicates(args) {
@@ -115,6 +119,7 @@ function get_args() {
   return {
     match: matching.value,
     n_pinned: not_pinned.checked,
+    all_windows: all_windows.checked,
     by_title: by_title,
     by_duplicate: by_duplicate,
     sensitive: by_title ? case_sensitive.checked : true,
@@ -236,7 +241,7 @@ function update_summary() {
 // initialise state
 update_summary();
 // update summary on all input updates
-[matching, case_sensitive, not_pinned].forEach((inp) => {
+[matching, case_sensitive, not_pinned, all_windows].forEach((inp) => {
   inp.addEventListener("input", (e) => {
     update_summary();
   })
