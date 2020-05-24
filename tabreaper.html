@@ -17,16 +17,23 @@
         <div class="panel-section-tabs-button selected browser-styled select browser-styleed" target="url-form" id="url-form-tab">URL</div>
         <div class="panel-section-tabs-separator"></div>
         <div class="panel-section-tabs-button browser-styled browser-styleed" target="title-form" id="title-form-tab">Title</div>
+        <div class="panel-section-tabs-separator"></div>
+        <div class="panel-section-tabs-button browser-styled browser-styleed" target="duplicates-form" hide="matching-panel pinned-panel" id="duplicates-form-tab">Duplicates</div>
       </div>
 
       <div class="panel-section panel-section-formElements browser-style">
 
-        <div class="panel-formElements-item">
+        <div id="matching-panel" class="panel-formElements-item">
           <label for="matching-url">Match:</label>
           <input type="text" placeholder="Close tabs matching" id="matching-url" autofocus/>
         </div>
 
         <div id="url-form">
+        </div>
+        <div id="duplicates-form" style="display:none">
+          <div id="no-duplicates">
+            <label>No duplicates found</label>
+          </div>
         </div>
         <div id="title-form" style="display:none">
           <div class="panel-formElements-item">
@@ -34,7 +41,7 @@
           </div>
         </div>
 
-        <div class="panel-formElements-item">
+        <div id="pinned-panel" class="panel-formElements-item">
           <input type="checkbox" id="not-pinned" checked></input><label for="not-pinned">Don't close pinned tabs</label>
         </div>
 

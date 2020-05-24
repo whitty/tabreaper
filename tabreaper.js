@@ -5,6 +5,7 @@ var close_button = document.querySelector('#close-button');
 var match_count = document.querySelector('#match-count');
 var summary = document.querySelector('#summary');
 var table = document.querySelector('#summary-table');
+var no_duplicates = document.querySelector('#no-duplicates');
 var empty_icon = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"/>');
 
 // set to true to skip closing - just print what we'd do
@@ -18,15 +19,62 @@ tabs.forEach((this_tab) => { this_tab.addEventListener("click", (e) => {
     tab.classList.remove("selected");
     tab.classList.remove("select"); // temporary workaround
     document.querySelector("#" + tab.getAttribute("target")).style.display="none";
+
+    // restore any hides
+    if (tab.getAttribute("hide")) {
+      tab.getAttribute("hide").split(" ").forEach(function(id) {
+        document.querySelector("#" + id).style.display="";
+      });
+    }
   });
   this_tab.classList.add("selected");
   this_tab.classList.add("select"); // temporary workaround
   document.querySelector("#" + this_tab.getAttribute("target")).style.display="inline";
+
+  // hide any elements marked as hides
+  if (this_tab.getAttribute("hide")) {
+    this_tab.getAttribute("hide").split(" ").forEach(function(id) {
+      document.querySelector("#" + id).style.display="none";
+    });
+  }
   update_summary();
 })});
 
+function match_duplicates(args) {
+
+  // get current window with tabs
+  return browser.windows.getCurrent({populate: true}).then((window) => {
+
+    let seen = {};
+    let matched = [];
+
+    for (var i = 0; i < window.tabs.length; i++) {
+      let t = window.tabs[i];
+      if (t.url in seen) {
+        if (args.n_pinned && t.pinned) {
+          // this is pinned, check the stashed one
+          // if this isn't then discard it instead
+          if (!seen[t.url].pinned) {
+            let prev = seen[t.url];
+            seen[t.url] = t;
+            matched.push(prev);
+          }
+        } else {
+          matched.push(t);
+        }
+      } else {
+        seen[t.url] = t;
+      }
+    }
+    return matched;
+  });
+}
+
 function match_tabs(args) {
 
+  if (args.by_duplicate) {
+    return match_duplicates(args)
+  }
   let match = args.match;
   if (!args.sensitive)
     match = match.toLowerCase();
@@ -56,10 +104,12 @@ function match_tabs(args) {
 // get args from form
 function get_args() {
   let by_title = document.querySelector('#title-form-tab').classList.contains("selected");
+  let by_duplicate = document.querySelector('#duplicates-form-tab').classList.contains("selected");
   return {
     match: matching.value,
     n_pinned: not_pinned.checked,
     by_title: by_title,
+    by_duplicate: by_duplicate,
     sensitive: by_title ? case_sensitive.checked : true
   };
 }
@@ -67,7 +117,7 @@ function get_args() {
 // the main closer
 function close_matched() {
   let args = get_args();
-  if (args.match) {
+  if (args.match || args.by_duplicate) {
     match_tabs(args).then((matched) => {
       for (var i = 0; i < matched.length; ++i) {
         let t = matched[i];
@@ -148,7 +198,7 @@ function notFoundRow() {
 
 function update_summary() {
   let args = get_args();
-  if (args.match) {
+  if (args.match || args.by_duplicate) {
     summary.style.display = "inline";
     match_tabs(args).then((matched) => {
       close_button.disabled = matched.length == 0;
@@ -160,9 +210,18 @@ function update_summary() {
       });
       if (matched.length == 0)
         table.appendChild(notFoundRow());
+      if (args.by_duplicate) {
+        if (matched.length == 0) {
+          summary.style.display = "none";
+          close_button.disabled = true;
+          no_duplicates.style.display = "inline";
+        } else {
+          no_duplicates.style.display = "none";
+        }
+      }
     });
   } else {
-    summary.style.display  = "none";
+    summary.style.display = "none";
     close_button.disabled = true;
   }
 }
