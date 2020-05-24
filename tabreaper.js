@@ -1,11 +1,16 @@
+// query box
 var matching = document.querySelector('#matching-url');
+// matching checkboxes
 var not_pinned = document.querySelector('#not-pinned');
 var case_sensitive = document.querySelector('#case-sensitive');
+
+// Output elements
 var close_button = document.querySelector('#close-button');
 var match_count = document.querySelector('#match-count');
 var summary = document.querySelector('#summary');
 var table = document.querySelector('#summary-table');
 var no_duplicates = document.querySelector('#no-duplicates');
+
 var empty_icon = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"/>');
 
 // set to true to skip closing - just print what we'd do
@@ -110,7 +115,7 @@ function get_args() {
     n_pinned: not_pinned.checked,
     by_title: by_title,
     by_duplicate: by_duplicate,
-    sensitive: by_title ? case_sensitive.checked : true
+    sensitive: by_title ? case_sensitive.checked : true,
   };
 }
 
