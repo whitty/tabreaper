@@ -18,6 +18,8 @@ var empty_icon = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://
 var debug_mode = false;
 var max_summary_lines = 10;
 
+// UI tabs handling
+
 // switch tabs on select
 var tabs = document.querySelectorAll('.panel-section-tabs-button');
 tabs.forEach((this_tab) => { this_tab.addEventListener("click", (e) => {
@@ -59,6 +61,8 @@ browser.storage.local.get({'current-tab': tabs[0].id}).then((result) => {
     }
   }
 });
+
+// tab matching and closing functions
 
 function fetchTabs(args, fn) {
   let query = {};

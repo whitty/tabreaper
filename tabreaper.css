@@ -2,7 +2,7 @@ body {
   width: 35rem;
   overflow-x: hidden;
   overflow-y: hidden;
-};
+}
 
 #match-count {
   margin: 4px;
@@ -84,7 +84,7 @@ body {
   text-overflow: clip ellipsis;
   display: table-cell;
   vertical-align: middle;
-};
+}
 
 .summary-row-elipsis {
   text-align: center;
