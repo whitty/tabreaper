@@ -33,6 +33,10 @@ tabs.forEach((this_tab) => { this_tab.addEventListener("click", (e) => {
       });
     }
   });
+  // persist this tab selection
+  browser.storage.local.set({'current-tab': this_tab.id})
+
+  // update the UI
   this_tab.classList.add("selected");
   this_tab.classList.add("select"); // temporary workaround
   document.querySelector("#" + this_tab.getAttribute("target")).style.display="inline";
@@ -45,6 +49,16 @@ tabs.forEach((this_tab) => { this_tab.addEventListener("click", (e) => {
   }
   update_summary();
 })});
+
+// Load persisted tab
+browser.storage.local.get({'current-tab': tabs[0].id}).then((result) => {
+  for (let this_tab of tabs) {
+    if (this_tab.id == result['current-tab']) {
+      this_tab.click();
+      break;
+    }
+  }
+});
 
 function fetchTabs(args, fn) {
   let query = {};
