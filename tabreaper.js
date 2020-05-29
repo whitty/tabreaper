@@ -174,12 +174,16 @@ function close_matched() {
   let args = get_args();
   if (args.match || args.by_duplicate) {
     match_tabs(args).then((matched) => {
-      for (var i = 0; i < matched.length; ++i) {
-        let t = matched[i];
-        if (debug_mode)
+      let ids = matched.map((t) => {
+        if (debug_mode) {
           console.log("closed tab: " + t.url);
-        else
-          browser.tabs.remove(t.id);
+        }
+        return t.id;
+      });
+      if (!debug_mode) {
+        browser.tabs.remove(ids).then(function(t) {
+          update_summary();
+        });
       }
       matching.value = "";
       matching.focus();
