@@ -90,23 +90,25 @@ function match_duplicates(args) {
     let matched = [];
 
     for (let t of tabs) {
-      if (t.url in seen) {
+      // cookieStoreId == tab containers (aka contextualIdentities)
+      let key = [ t.url, t.cookieStoreId ];
+      if (key in seen) {
         if (t.pinned) {
           args.pinned_match_count += 1;
         }
         if (args.n_pinned && t.pinned) {
           // this is pinned, check the stashed one
           // if this isn't then discard it instead
-          if (!seen[t.url].pinned) {
-            let prev = seen[t.url];
-            seen[t.url] = t;
+          if (!seen[key].pinned) {
+            let prev = seen[key];
+            seen[key] = t;
             matched.push(prev);
           }
         } else {
           matched.push(t);
         }
       } else {
-        seen[t.url] = t;
+        seen[key] = t;
       }
     }
     return matched;
