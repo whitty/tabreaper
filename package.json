@@ -1,0 +1,6 @@
+{
+  "name": "tabreaper",
+  "devDependencies": {
+    "jsdom": "*"
+  }
+}

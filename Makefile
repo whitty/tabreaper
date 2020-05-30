@@ -27,4 +27,5 @@ test:
 
 .PHONY: build
 build: icons
-	web-ext build --overwrite-dest  --ignore-files="*~" "test"  "Makefile" "README.md" "icons/*.png"
+	git clean -xfd
+	web-ext build --overwrite-dest  --ignore-files="*~" "test"  "Makefile" "README.md" "icons/*.png" "package.json"

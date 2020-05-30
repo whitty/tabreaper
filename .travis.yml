@@ -6,6 +6,7 @@ node_js:
 before_install:
   - sudo apt-get install -y zip librsvg2-bin
   - npm install -g web-ext
+  - npm install
 script:
   - make test
   - make build
