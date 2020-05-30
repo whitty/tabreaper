@@ -1,19 +1,6 @@
 .PHONY: all icons test
 
-all: icons tabreaper.zip
-
-tabreaper.zip:					\
-	LICENSE.txt				\
-	manifest.json				\
-	tabreaper.css				\
-	tabreaper.html				\
-	tabreaper.js				\
-	util.js					\
-	icons/tab-reap-light.svg		\
-	icons/tab-reap-dark.svg			\
-	icons/tab-reap.svg
-	rm -f $@
-	zip -r -FS $@ $^
+all: icons
 
 icons:						\
 	icons/tab-reap-light.svg		\
