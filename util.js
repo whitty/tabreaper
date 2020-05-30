@@ -20,5 +20,22 @@
     });
   }
 
+  function removeLastSubstring(s, substr) {
+    let pos = s.lastIndexOf(substr)
+    if (pos >= 0) {
+      return s.substring(0, pos) + s.substring(pos + substr.length);
+    }
+    return s;
+  }
+  exports.removeLastSubstring = removeLastSubstring;
+
+  // prepare a url for duplicate comparison
+  exports.referenceUrl = function(url, document) {
+    let a = document.createElement('a');
+    a.href = url;
+    // remove the anchor portion (a.hash)
+    return removeLastSubstring(url, a.hash);
+  }
+
   // more palaver
 })(typeof exports === 'undefined'? this['util']={}: exports);
