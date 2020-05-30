@@ -289,7 +289,7 @@ function update_summary() {
       if (args.pinned_match_count == 0 || (pinned_policy == "ask" && not_pinned.checked)) {
         pinned_policy_warning.style.display = 'none';
       } else {
-      pinned_policy_warning.classList.remove("highlight");
+        pinned_policy_warning.classList.remove("highlight");
         if (pinned_policy == "preserve") {
           pinned_policy_warning.innerText = " (some pinned tabs were ignored)";
         } else if (pinned_policy == "close_them" || (pinned_policy == "ask" && !not_pinned.checked)) {
