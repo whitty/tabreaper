@@ -91,7 +91,7 @@ function match_duplicates(args) {
 
     for (let t of tabs) {
       // cookieStoreId == tab containers (aka contextualIdentities)
-      let key = [ t.url, t.cookieStoreId ];
+      let key = [ util.referenceUrl(t.url, document), t.cookieStoreId ];
       if (key in seen) {
         if (t.pinned) {
           args.pinned_match_count += 1;
