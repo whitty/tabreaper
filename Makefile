@@ -22,8 +22,9 @@ run: icons
 
 NODE := $(firstword $(shell which nodejs) $(shell which node))
 
-test:
+test: icons
 	$(NODE) test/util_test.js
+	web-ext lint
 
 .PHONY: build
 build: icons
