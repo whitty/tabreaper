@@ -240,6 +240,7 @@ function summaryRow(tab, args) {
   close_ico.addEventListener("click", (e) => {
     close_one(tab);
   });
+  close_ico.setAttribute('title', 'Click to close this tab')
   ico_parent.appendChild(close_ico);
 
   let entry = document.createElement('span');
@@ -248,6 +249,7 @@ function summaryRow(tab, args) {
   } else {
     entry.appendChild(document.createTextNode(tab.title));
   }
+  entry.setAttribute('title', tab.url)
   entry.setAttribute('class', 'summary-cell')
   tr.appendChild(entry)
   return tr;
