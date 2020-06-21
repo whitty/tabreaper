@@ -216,6 +216,15 @@ function close_one(tab) {
     });
 }
 
+function focusTab(tab) {
+  browser.windows.get(tab.windowId, {populate: false}).then((window) => {
+    if (!window.focused) {
+      browser.windows.update(tab.windowId, {'focused': true})
+    }
+    browser.tabs.update(tab.id, {active: true})
+  })
+}
+
 function summaryRow(tab, args) {
   let tr = document.createElement("div");
   tr.setAttribute('class', 'summary-row');
@@ -250,6 +259,7 @@ function summaryRow(tab, args) {
     entry.appendChild(document.createTextNode(tab.title));
   }
   entry.setAttribute('title', tab.url)
+  entry.ondblclick = () => { focusTab(tab) }
   entry.setAttribute('class', 'summary-cell')
   tr.appendChild(entry)
   return tr;
