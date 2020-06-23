@@ -39,7 +39,7 @@ body {
   display: table-row;
 }
 
-.summary-close:hover {
+.summary-close:hover, .summary-cell:hover {
   background-color: hsla(0,0%,70%,.2);
 }
 
