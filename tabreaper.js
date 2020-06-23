@@ -219,9 +219,12 @@ function close_one(tab) {
 function focusTab(tab) {
   browser.windows.get(tab.windowId, {populate: false}).then((window) => {
     if (!window.focused) {
-      browser.windows.update(tab.windowId, {'focused': true})
+      browser.windows.update(tab.windowId, {'focused': true}).then((window) => {
+        browser.tabs.update(tab.id, {active: true})
+      })
+    } else {
+      browser.tabs.update(tab.id, {active: true})
     }
-    browser.tabs.update(tab.id, {active: true})
   })
 }
 
