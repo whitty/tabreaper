@@ -112,3 +112,7 @@ body {
 #pinned-policy-warning.highlight {
   color: red;
 }
+
+span.avoidwrap {
+  display:inline-block;
+}

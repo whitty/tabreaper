@@ -364,6 +364,8 @@ function setSuggestions(hints) {
     let count = 0;
 
     hints.forEach(s => {
+      let span = document.createElement('span');
+      span.classList.add('avoidwrap')
       let section = document.createElement('a');
       section.setAttribute('href', '#');
       section.addEventListener("click", function() {
@@ -371,10 +373,11 @@ function setSuggestions(hints) {
         matching.dispatchEvent(new Event('input'));
       });
       section.textContent = s;
-      suggestions.appendChild(section);
+      span.appendChild(section);
       if (count + 1 < hints.length) {
-        suggestions.appendChild(document.createTextNode(', '));
+        span.appendChild(document.createTextNode(', '));
       }
+      suggestions.appendChild(span);
       ++count;
     })
     suggestions_panel.style.display = null;
