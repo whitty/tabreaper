@@ -391,7 +391,7 @@ function setURLSuggestions(title) {
     if (tab.length) {
       if (title) {
         // split suggestions into chunks based on separator like chars
-        let parts = tab[0].title.split(/\s*[-|:,;+\t\n\r&()\[\]]\s*/);
+        let parts = tab[0].title.split(/\s*[-|:,;+\u00B7\t\n\r&()\[\]]\s*/);
         setSuggestions(parts.filter(x => {
           return x && x.length > 0;
         }))
