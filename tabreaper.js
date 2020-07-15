@@ -364,11 +364,6 @@ function setSuggestions(hints) {
     let count = 0;
 
     hints.forEach(s => {
-      if (count) {
-        let s = document.createElement('span');
-        s.textContent = ', ';
-        suggestions.appendChild(s);
-      }
       let section = document.createElement('a');
       section.setAttribute('href', '#');
       section.addEventListener("click", function() {
@@ -377,6 +372,9 @@ function setSuggestions(hints) {
       });
       section.textContent = s;
       suggestions.appendChild(section);
+      if (count + 1 < hints.length) {
+        suggestions.appendChild(document.createTextNode(', '));
+      }
       ++count;
     })
     suggestions_panel.style.display = null;
