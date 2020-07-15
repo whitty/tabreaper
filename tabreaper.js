@@ -403,6 +403,8 @@ matching.addEventListener("keyup", (e) => {
     close_button.click();
 });
 
+browser.tabs.onUpdated.addListener(update_summary);
+
 let values = {'pinned-tab-handling-selection': pinned_policy};
 browser.storage.local.get(values).then((result) => {
   pinned_policy = result['pinned-tab-handling-selection'];
