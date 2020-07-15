@@ -37,5 +37,11 @@
     return removeLastSubstring(url, a.hash);
   }
 
+  exports.domainForUrl = function(url, document) {
+    let a = document.createElement('a');
+    a.href = url;
+    return a.hostname;
+  }
+
   // more palaver
 })(typeof exports === 'undefined'? this['util']={}: exports);

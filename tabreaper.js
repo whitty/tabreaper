@@ -7,6 +7,9 @@ var pinned_policy = "preserve";
 var case_sensitive = document.querySelector('#case-sensitive');
 var all_windows = document.querySelector('#all-windows');
 
+var suggestions_panel = document.querySelector('#suggestions-panel');
+suggestions_panel.style.display = "none";
+
 // Output elements
 var close_button = document.querySelector('#close-button');
 var match_count = document.querySelector('#match-count');
@@ -280,6 +283,8 @@ function update_summary() {
   if (args.match || args.by_duplicate) {
     summary.style.display = "inline";
     no_duplicates.style.display = "none";
+    setSuggestions([])
+
     match_tabs(args).then((matched) => {
       close_button.disabled = matched.length == 0;
       match_count.textContent = matched.length;
@@ -319,6 +324,12 @@ function update_summary() {
     summary.style.display = "none";
     close_button.disabled = true;
     no_duplicates.style.display = "none";
+
+    if (args.by_title || args.by_duplicate) {
+      setSuggestions(null);
+    } else {
+      setURLSuggestions();
+    }
   }
 }
 
@@ -344,6 +355,48 @@ update_summary();
 close_button.addEventListener("click", (e) => {
   close_matched();
 });
+
+
+function setSuggestions(hints) {
+  if (hints != null && hints.length) {
+    let suggestions = document.querySelector('#autofill-suggestions');
+    suggestions.innerHTML = '';
+    let count = 0;
+
+    hints.forEach(s => {
+      if (count) {
+        let s = document.createElement('span');
+        s.textContent = ', ';
+        suggestions.appendChild(s);
+      }
+      let section = document.createElement('a');
+      section.setAttribute('href', '#');
+      section.addEventListener("click", function() {
+        matching.value = s;
+        matching.dispatchEvent(new Event('input'));
+      });
+      section.textContent = s;
+      suggestions.appendChild(section);
+      ++count;
+    })
+    suggestions_panel.style.display = null;
+  } else {
+    suggestions_panel.style.display = "none";
+  }
+}
+
+function setURLSuggestions() {
+  browser.tabs.query({currentWindow: true, active: true}).then((tab) => {
+    if (tabs.length) {
+      let domain = util.domainForUrl(tab[0].url, document)
+      if (domain) {
+        setSuggestions([domain])
+        return;
+      }
+    }
+    setSuggestions([]);
+  })
+}
 
 matching.addEventListener("keyup", (e) => {
   if (e.key == "Enter" && matching.value)

@@ -14,7 +14,7 @@
 
       <div class="panel-section panel-section-tabs">
         <!-- NOTE broken CSS inserts browser-style inside 'selected' to give select and browser-styleed -->
-        <div class="panel-section-tabs-button selected browser-styled select browser-styleed" id="url-form-tab">URL</div>
+        <div class="panel-section-tabs-button selected browser-styled select browser-styleed" show="suggestions-panel" id="url-form-tab">URL</div>
         <div class="panel-section-tabs-separator"></div>
         <div class="panel-section-tabs-button browser-styled browser-styleed" show="title-form" id="title-form-tab">Title</div>
         <div class="panel-section-tabs-separator"></div>
@@ -30,6 +30,10 @@
 
         <div id="no-duplicates" class="panel-formElements-item">
           <label>No duplicates found</label>
+        </div>
+
+        <div id="suggestions-panel" class="panel-formElements-item">
+          <label>Suggested queries: <span id="autofill-suggestions"/></label>
         </div>
 
         <div id="title-form" class="panel-formElements-item panel-formElements-item-grouped">
