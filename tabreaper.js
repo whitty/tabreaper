@@ -325,10 +325,10 @@ function update_summary() {
     close_button.disabled = true;
     no_duplicates.style.display = "none";
 
-    if (args.by_title || args.by_duplicate) {
+    if (args.by_duplicate) {
       setSuggestions(null);
     } else {
-      setURLSuggestions();
+      setURLSuggestions(args.by_title);
     }
   }
 }
@@ -385,13 +385,22 @@ function setSuggestions(hints) {
   }
 }
 
-function setURLSuggestions() {
+function setURLSuggestions(title) {
   browser.tabs.query({currentWindow: true, active: true}).then((tab) => {
-    if (tabs.length) {
-      let domain = util.domainForUrl(tab[0].url, document)
-      if (domain) {
-        setSuggestions([domain])
+    if (tab.length) {
+      if (title) {
+        // split suggestions into chunks based on separator like chars
+        let parts = tab[0].title.split(/\s*[-|:,;+\t\n\r&()\[\]]\s*/);
+        setSuggestions(parts.filter(x => {
+          return x && x.length > 0;
+        }))
         return;
+      } else {
+        let domain = util.domainForUrl(tab[0].url, document)
+        if (domain) {
+          setSuggestions([domain])
+          return;
+        }
       }
     }
     setSuggestions([]);
