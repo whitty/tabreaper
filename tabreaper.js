@@ -133,7 +133,7 @@ function match_tabs(args) {
     let matched = [];
 
     for (let t of tabs) {
-      let val = args.by_title ? t.title : t.url; // TODO - title should be case insensitive
+      let val = args.by_title ? t.title : decodeURI(t.url);
 
       if (!args.sensitive)
         val = val.toLowerCase();
