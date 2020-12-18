@@ -1,3 +1,6 @@
 *~
 tabreaper.zip
 package-lock.json
+
+# generated files
+punycode.js

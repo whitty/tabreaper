@@ -1,6 +1,6 @@
-.PHONY: all icons test
+.PHONY: all icons code test
 
-all: icons
+all: icons code
 
 icons:						\
 	icons/tab-reap-light.svg		\
@@ -28,5 +28,13 @@ test: icons
 	web-ext lint
 
 .PHONY: build
-build: icons
-	web-ext build --overwrite-dest  --ignore-files="*~" "test"  "Makefile" "README.md" "icons/*.png" "package.json"
+build: icons code
+	web-ext build --overwrite-dest  --ignore-files="*~" "test"  "Makefile" "README.md" "icons/*.png" "package.json" \
+	vendor/
+
+code: punycode.js
+
+punycode.js: vendor/punycode/punycode.js vendor/punycode/LICENSE-MIT.txt $(MAKEFILE_LIST)
+	sed 's:^:// :' vendor/punycode/LICENSE-MIT.txt > $@
+	echo "" >> $@
+	sed '/module.exports = /d' $< >> $@
