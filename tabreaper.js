@@ -272,7 +272,7 @@ function summaryRow(tab, args) {
   close_ico.addEventListener("click", (e) => {
     close_one(tab);
   });
-  close_ico.setAttribute('title', 'Click to close this tab')
+  close_ico.setAttribute('title', browser.i18n.getMessage('closeButtonTooltip'))
   ico_parent.appendChild(close_ico);
 
   let entry = document.createElement('span');
@@ -291,7 +291,7 @@ function summaryRow(tab, args) {
 function notFoundRow() {
   let tr = document.createElement("div");
   tr.setAttribute('class', 'summary-row summary-row-not-found');
-  tr.appendChild(document.createTextNode('Not found'));
+  tr.appendChild(document.createTextNode(browser.i18n.getMessage('notFoundAlert')));
   return tr;
 }
 
@@ -328,9 +328,9 @@ function update_summary() {
       } else {
         pinned_policy_warning.classList.remove("highlight");
         if (pinned_policy == "preserve") {
-          pinned_policy_warning.innerText = " (some pinned tabs were ignored)";
+          pinned_policy_warning.innerText = browser.i18n.getMessage("pinnedTabsNote");
         } else if (pinned_policy == "close_them" || (pinned_policy == "ask" && !not_pinned.checked)) {
-          pinned_policy_warning.innerText = " (pinned tabs will be closed!)";
+          pinned_policy_warning.innerText = browser.i18n.getMessage("pinnedTabsWarning");
           pinned_policy_warning.classList.add("highlight");
         }
         pinned_policy_warning.style.display = "inline";
