@@ -16,6 +16,7 @@ var match_count = document.querySelector('#match-count');
 var summary = document.querySelector('#summary');
 var table = document.querySelector('#summary-table');
 var no_duplicates = document.querySelector('#no-duplicates');
+var unicode_warning = document.querySelector('#unicode-warning');
 
 var empty_icon = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"/>');
 
@@ -149,6 +150,9 @@ function match_tabs(args) {
       // try convert a punycode domain to match
       if (!foundMatch && !args.by_title) {
         foundMatch = punyEquivalent(val).includes(match);
+        if (foundMatch) {
+          unicode_warning.style.display = "inline";
+        }
       }
 
       if (foundMatch) {
@@ -416,6 +420,7 @@ function setURLSuggestions(title) {
           let decodedDomain = punycode.toUnicode(domain)
           if (decodedDomain != domain) {
             suggestions.push(decodedDomain)
+            unicode_warning.style.display = "inline";
           }
           setSuggestions(suggestions)
           return;

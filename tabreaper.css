@@ -116,3 +116,10 @@ body {
 span.avoidwrap {
   display:inline-block;
 }
+
+#unicode-warning {
+  display: none; /* hidden by default */
+}
+#unicode-warning p {
+  font-size: smaller;
+}
