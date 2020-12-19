@@ -118,6 +118,11 @@ function match_duplicates(args) {
   });
 }
 
+function punyEquivalent(url) {
+  let u = new URL(url)
+  return u.protocol + "//" + punycode.toUnicode(u.host) + u.pathname + u.search + u.hash
+}
+
 function match_tabs(args) {
 
   if (args.by_duplicate) {
@@ -138,7 +143,15 @@ function match_tabs(args) {
       if (!args.sensitive)
         val = val.toLowerCase();
 
-      if (val.includes(match)) {
+      // normal match
+      let foundMatch = val.includes(match);
+
+      // try convert a punycode domain to match
+      if (!foundMatch && !args.by_title) {
+        foundMatch = punyEquivalent(val).includes(match);
+      }
+
+      if (foundMatch) {
         if (t.pinned)
           args.pinned_match_count += 1;
         if (!args.n_pinned || !t.pinned) {
@@ -399,7 +412,12 @@ function setURLSuggestions(title) {
       } else {
         let domain = util.domainForUrl(tab[0].url, document)
         if (domain) {
-          setSuggestions([domain])
+          let suggestions = [domain];
+          let decodedDomain = punycode.toUnicode(domain)
+          if (decodedDomain != domain) {
+            suggestions.push(decodedDomain)
+          }
+          setSuggestions(suggestions)
           return;
         }
       }
