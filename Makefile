@@ -25,6 +25,7 @@ NODE := $(firstword $(shell which nodejs) $(shell which node))
 test: icons
 	@node -r jsdom </dev/null 2>/dev/null || npm install
 	$(NODE) test/util_test.js
+	$(foreach js,$(wildcard *.json _locales/*/*.json),node $(js) && ) true
 	web-ext lint
 
 .PHONY: build

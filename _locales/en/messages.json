@@ -1,0 +1,113 @@
+{
+  "extensionName": {
+    "message": "Tab Reaper",
+    "description": "Name of the extension."
+  },
+
+  "extensionDescription": {
+    "message": "Bulk close tabs with matching URLs or names.",
+    "description": "Description of the extension."
+  },
+
+  "closeButton": {
+    "message": "Close them!",
+    "description": "action button to do the closing"
+  },
+
+  "closeButtonTooltip": {
+    "message": "Click to close this tab",
+    "description": "instruction on inline single tab close button"
+  },
+
+  "notFoundAlert": {
+    "message": "Not found",
+    "description": "indicates that no matching tabs were found"
+  },
+
+  "pinnedTabsNote": {
+    "message": " (some pinned tabs were ignored)",
+    "description": "highlights that some tabs were not selected due to pin settings."
+  },
+
+  "pinnedTabsWarning": {
+    "message": " (pinned tabs will be closed!)",
+    "description": "highlights that pinned tabs will be closed due to pin settings."
+  },
+
+  "mainTabUrl": {
+    "message": " URL",
+    "description": "The main tab selecting the URL search method."
+  },
+
+  "mainTabTitle": {
+    "message": " Title",
+    "description": "The main tab selecting the Title search method."
+  },
+
+  "mainTabTitle": {
+    "message": " Duplicates",
+    "description": "The main tab selecting the Duplicate search method."
+  },
+
+  "searchQueryPrompt": {
+    "message": "Match:",
+    "description": "The prompt for the search query."
+  },
+
+  "searchQuerySuggestionLabel": {
+    "message": "Suggested queries:",
+    "description": "The label showing suggested queries."
+  },
+
+  "caseSensitiveTitleMatchLabel": {
+    "message": "Case sensitive title match",
+    "description": "The form label asking if matches should be case sensitive."
+  },
+
+  "allWindowsMatchLabel": {
+    "message": "Look through all windows",
+    "description": "Query asking to search all windows (active) or just the current window"
+  },
+
+  "dontClosePinnedTabs": {
+    "message": "Don't close pinned tabs",
+    "description": "query if pinned tabs should be closed (if pin settings is ask)"
+  },
+
+  "noDuplicates": {
+    "message": "No duplicates found",
+    "description": "Report indicating no duplicates found to close."
+  },
+
+  "noDuplicates": {
+    "message": "No duplicates found",
+    "description": "Report indicating no duplicates found to close."
+  },
+
+  "unicodeFailureWarning": {
+    "message": "I'm trying to match unicode searches and suggestions.  If its not working for you please <a href=\"$URL$\">submit a bug</a> with examples",
+    "description": "link to issues because the unicode stuff is probably broken.",
+    "placeholders": {
+      "url" : {
+        "content" : "$1",
+        "example" : "http://github.com/whitty/tabreaper/issues"
+      }
+    }
+  },
+
+  "matchedSummary": {
+    "message": "Matched $COUNT$ tabs: $PINNED$",
+    "description": "Summarise the result of the query with space for pinned tabs warning.",
+    "placeholders": {
+      "count" : {
+        "content" : "$1",
+        "example" : "5"
+      },
+      "pinned" : {
+        "content" : "$2",
+        "example" : "See pinnedTabsWarning translated above"
+      }
+    }
+  }
+
+}
