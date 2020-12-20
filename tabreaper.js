@@ -25,27 +25,8 @@ var debug_mode = false;
 var max_summary_lines = 10;
 
 // substitute I18N
-close_button.innerText = browser.i18n.getMessage("closeButton")
-var xlates = [
-  ["#url-form-tab", "mainTabUrl"],
-  ["#title-form-tab", "mainTabTitle"],
-  ["#duplicates-form-tab", "mainTabDuplicates"],
-  ["label[for='matching-url']", "searchQueryPrompt"],
-  ["label[for='autofill-suggestions']", "searchQuerySuggestionLabel"],
-  ["label[for='no-duplicates-found']", "noDuplicates"],
-  ["label[for='case-sensitive']", "caseSensitiveTitleMatchLabel"],
-  ["label[for='all-windows']", "allWindowsMatchLabel"],
-  ["label[for='not-pinned']", "dontClosePinnedTabs"],
-];
-xlates.forEach((e) => {
-  var elem = document.querySelector(e[0]);
-  if (elem) {
-    elem.innerText = browser.i18n.getMessage(e[1])
-  } else {
-    console.log("translation element " + e[0] + " not found")
-  }
-})
-document.querySelector("#unicode-warning > p").innerHTML = browser.i18n.getMessage("unicodeFailureWarning", "http://github.com/whitty/tabreaper/issues")
+util.applyI18N(document)
+document.querySelector("#unicode-warning > p").innerHTML = browser.i18n.getMessage("unicode-failure-warning", "http://github.com/whitty/tabreaper/issues")
 document.querySelector("label[for='match-count']").innerHTML = browser.i18n.getMessage("matchedSummary", ['<span id="match-count">0</span>', '<span id="pinned-policy-warning"/>'])
 
 // UI tabs handling

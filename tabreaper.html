@@ -14,38 +14,38 @@
 
       <div class="panel-section panel-section-tabs">
         <!-- NOTE broken CSS inserts browser-style inside 'selected' to give select and browser-styleed -->
-        <div class="panel-section-tabs-button selected browser-styled select browser-styleed" show="suggestions-panel" id="url-form-tab">URL</div>
+        <div class="panel-section-tabs-button selected browser-styled select browser-styleed" show="suggestions-panel" id="url-form-tab" i18n-key="main-tab-url">URL</div>
         <div class="panel-section-tabs-separator"></div>
-        <div class="panel-section-tabs-button browser-styled browser-styleed" show="title-form" id="title-form-tab">Title</div>
+        <div class="panel-section-tabs-button browser-styled browser-styleed" show="title-form" id="title-form-tab" i18n-key="main-tab-title">Title</div>
         <div class="panel-section-tabs-separator"></div>
-        <div class="panel-section-tabs-button browser-styled browser-styleed" hide="matching-panel" id="duplicates-form-tab">Duplicates</div>
+        <div class="panel-section-tabs-button browser-styled browser-styleed" hide="matching-panel" id="duplicates-form-tab" i18n-key="main-tab-duplicates">Duplicates</div>
       </div>
 
       <div class="panel-section panel-section-formElements browser-style">
 
         <div id="matching-panel" class="panel-formElements-item">
-          <label for="matching-url">Match:</label>
+          <label for="matching-url" i18n-key="search-query-prompt">Match:</label>
           <input type="text" placeholder="Close tabs matching" id="matching-url" autofocus/>
         </div>
 
         <div id="no-duplicates" class="panel-formElements-item">
-          <label for="no-duplicates-found">No duplicates found</label>
+          <label for="no-duplicates-found" i18n-key="no-duplicates-found">No duplicates found</label>
         </div>
 
         <div id="suggestions-panel" class="panel-formElements-item">
-          <label for="autofill-suggestions">Suggested queries:</label> <span id="autofill-suggestions"/>
+          <label for="autofill-suggestions" i18n-key="search-query-suggestion-label">Suggested queries:</label> <span id="autofill-suggestions"/>
         </div>
 
         <div id="title-form" class="panel-formElements-item panel-formElements-item-grouped">
-          <input type="checkbox" id="case-sensitive"></input><label for="case-sensitive">Case sensitive title match</label>
+          <input type="checkbox" id="case-sensitive"></input><label for="case-sensitive" i18n-key="case-sensitive-title-match-label">Case sensitive title match</label>
         </div>
 
         <div id="all-windows-panel" class="panel-formElements-item panel-formElements-item-grouped">
-          <input type="checkbox" id="all-windows"></input><label for="all-windows">Look through all windows</label>
+          <input type="checkbox" id="all-windows"></input><label for="all-windows" i18n-key="all-windows-match-label">Look through all windows</label>
         </div>
 
         <div id="pinned-panel" class="panel-formElements-item panel-formElements-item-grouped">
-          <input type="checkbox" id="not-pinned" checked></input><label for="not-pinned">Don't close pinned tabs</label>
+          <input type="checkbox" id="not-pinned" checked></input><label for="not-pinned" i18n-key="dont-close-pinned-tabs">Don't close pinned tabs</label>
         </div>
 
         <div class="panel-formElements-item" id="summary">
@@ -58,7 +58,7 @@
         </div>
 
         <div class="panel-formElements-item">
-          <button class="browser-style" id="close-button">Close them!</button>
+          <button class="browser-style" id="close-button" i18n-key="close-button">Close them!</button>
         </div>
 
         <div id="unicode-warning" class="panel-formElements-item panel-formElements-item-grouped">

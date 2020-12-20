@@ -9,7 +9,7 @@
     "description": "Description of the extension."
   },
 
-  "closeButton": {
+  "close-button": {
     "message": "Close them!",
     "description": "action button to do the closing"
   },
@@ -34,52 +34,52 @@
     "description": "highlights that pinned tabs will be closed due to pin settings."
   },
 
-  "mainTabUrl": {
+  "main-tab-url": {
     "message": " URL",
     "description": "The main tab selecting the URL search method."
   },
 
-  "mainTabTitle": {
+  "main-tab-title": {
     "message": " Title",
     "description": "The main tab selecting the Title search method."
   },
 
-  "mainTabDuplicates": {
+  "main-tab-duplicates": {
     "message": " Duplicates",
     "description": "The main tab selecting the Duplicate search method."
   },
 
-  "searchQueryPrompt": {
+  "search-query-prompt": {
     "message": "Match:",
     "description": "The prompt for the search query."
   },
 
-  "searchQuerySuggestionLabel": {
+  "search-query-suggestion-label": {
     "message": "Suggested queries:",
     "description": "The label showing suggested queries."
   },
 
-  "caseSensitiveTitleMatchLabel": {
+  "case-sensitive-title-match-label": {
     "message": "Case sensitive title match",
     "description": "The form label asking if matches should be case sensitive."
   },
 
-  "allWindowsMatchLabel": {
+  "all-windows-match-label": {
     "message": "Look through all windows",
     "description": "Query asking to search all windows (active) or just the current window"
   },
 
-  "dontClosePinnedTabs": {
+  "dont-close-pinned-tabs": {
     "message": "Don't close pinned tabs",
     "description": "query if pinned tabs should be closed (if pin settings is ask)"
   },
 
-  "noDuplicates": {
+  "no-duplicates-found": {
     "message": "No duplicates found",
     "description": "Report indicating no duplicates found to close."
   },
 
-  "unicodeFailureWarning": {
+  "unicode-failure-warning": {
     "message": "I'm trying to match unicode searches and suggestions.  If its not working for you please <a href=\"$URL$\">submit a bug</a> with examples",
     "description": "link to issues because the unicode stuff is probably broken.",
     "placeholders": {
