@@ -44,7 +44,7 @@
     "description": "The main tab selecting the Title search method."
   },
 
-  "mainTabTitle": {
+  "mainTabDuplicates": {
     "message": " Duplicates",
     "description": "The main tab selecting the Duplicate search method."
   },
@@ -72,11 +72,6 @@
   "dontClosePinnedTabs": {
     "message": "Don't close pinned tabs",
     "description": "query if pinned tabs should be closed (if pin settings is ask)"
-  },
-
-  "noDuplicates": {
-    "message": "No duplicates found",
-    "description": "Report indicating no duplicates found to close."
   },
 
   "noDuplicates": {
