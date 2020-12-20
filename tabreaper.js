@@ -46,6 +46,8 @@ xlates.forEach((e) => {
   }
 })
 document.querySelector("#unicode-warning > p").innerHTML = browser.i18n.getMessage("unicodeFailureWarning", "http://github.com/whitty/tabreaper/issues")
+document.querySelector("label[for='match-count']").innerHTML = browser.i18n.getMessage("matchedSummary", ['<span id="match-count">0</span>', '<span id="pinned-policy-warning"/>'])
+
 // UI tabs handling
 
 // switch tabs on select
