@@ -16,3 +16,4 @@ Features:
  - Choose case sensitivity
  - Close individual tabs from the list
  - Close duplicate tabs
+ - Support for IDN domain names
