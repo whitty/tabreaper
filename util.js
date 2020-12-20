@@ -43,5 +43,12 @@
     return a.hostname;
   }
 
+  exports.applyI18N = function(document) {
+    for (elem of document.querySelectorAll("*[i18n-key]")) {
+      let key = elem.getAttribute("i18n-key");
+      elem.innerText = browser.i18n.getMessage(key);
+    }
+  }
+
   // more palaver
 })(typeof exports === 'undefined'? this['util']={}: exports);
