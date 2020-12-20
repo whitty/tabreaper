@@ -79,15 +79,17 @@
     "description": "Report indicating no duplicates found to close."
   },
 
-  "unicode-failure-warning": {
-    "message": "I'm trying to match unicode searches and suggestions.  If its not working for you please <a href=\"$URL$\">submit a bug</a> with examples",
-    "description": "link to issues because the unicode stuff is probably broken.",
-    "placeholders": {
-      "url" : {
-        "content" : "$1",
-        "example" : "http://github.com/whitty/tabreaper/issues"
-      }
-    }
+  "unicode-failure-warning-prefix": {
+    "message": "I'm trying to match unicode searches and suggestions.  If its not working for you please ",
+    "description": "link to issues because the unicode stuff is probably broken (text before link)."
+  },
+  "unicode-failure-warning-link-text": {
+    "message": "submit a bug",
+    "description": "link to issues because the unicode stuff is probably broken (the link text)."
+  },
+  "unicode-failure-warning-suffix": {
+    "message": " with examples",
+    "description": "link to issues because the unicode stuff is probably broken (text after the link text)."
   },
 
   "matchedSummary": {
