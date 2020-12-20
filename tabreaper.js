@@ -26,7 +26,6 @@ var max_summary_lines = 10;
 
 // substitute I18N
 util.applyI18N(document)
-document.querySelector("label[for='match-count']").innerHTML = browser.i18n.getMessage("matchedSummary", ['<span id="match-count">0</span>', '<span id="pinned-policy-warning"/>'])
 
 // UI tabs handling
 

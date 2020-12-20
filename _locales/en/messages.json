@@ -92,19 +92,13 @@
     "description": "link to issues because the unicode stuff is probably broken (text after the link text)."
   },
 
-  "matchedSummary": {
-    "message": "Matched $COUNT$ tabs: $PINNED$",
-    "description": "Summarise the result of the query with space for pinned tabs warning.",
-    "placeholders": {
-      "count" : {
-        "content" : "$1",
-        "example" : "5"
-      },
-      "pinned" : {
-        "content" : "$2",
-        "example" : "See pinnedTabsWarning translated above"
-      }
-    }
+  "matched-summary-prefix": {
+    "message": "Matched ",
+    "description": "Summarise the result of the query (before the match count)."
+  },
+  "matched-summary-suffix": {
+    "message": " tabs:",
+    "description": "Summarise the result of the query (after the match count)."
   },
 
   "option-close-pinned-tabs-selection": {
