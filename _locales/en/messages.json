@@ -103,6 +103,24 @@
         "example" : "See pinnedTabsWarning translated above"
       }
     }
+  },
+
+  "option-close-pinned-tabs-selection": {
+    "message": "Close pinned tabs:",
+    "description": "prompt for pinned tabs option."
+  },
+
+  "option-close-pinned-tabs-value-ask": {
+    "message": "Ask Me",
+    "description": "option to show check-box to choose pinned handling."
+  },
+  "option-close-pinned-tabs-value-preserve": {
+    "message": "Always preserve pinned tabs",
+    "description": "option to always ignore pinned tabs (preserve them)."
+  },
+  "option-close-pinned-tabs-value-close": {
+    "message": "Always consider closing pinned tabs",
+    "description": "option to always allow closing of pinned tabs if the search critera match."
   }
 
 }

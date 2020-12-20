@@ -1,3 +1,9 @@
+// apply i18ns
+for (elem of document.querySelectorAll("*[i18n-key]")) {
+  let key = elem.getAttribute("i18n-key");
+  elem.innerText = browser.i18n.getMessage(key);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   browser.storage.local.get({
     'pinned-tab-handling-selection': 'preserve',
