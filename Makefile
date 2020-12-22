@@ -39,3 +39,9 @@ punycode.js: vendor/punycode/punycode.js vendor/punycode/LICENSE-MIT.txt $(MAKEF
 	sed 's:^:// :' vendor/punycode/LICENSE-MIT.txt > $@
 	echo "" >> $@
 	sed '/module.exports = /d' $< >> $@
+
+.PHONY: export
+export:
+	git archive -o tabreaper_$$(git describe).tar --format=tar HEAD
+	git submodule foreach 'git archive --prefix=$$sm_path/ -o $$toplevel/x.tar HEAD && tar --catenate -f $$toplevel/tabreaper_$$(git -C $$toplevel describe).tar $$toplevel/x.tar && rm $$toplevel/x.tar'
+	gzip -9 tabreaper_$$(git describe).tar
