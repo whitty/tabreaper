@@ -17,3 +17,38 @@ Features:
  - Close individual tabs from the list
  - Close duplicate tabs
  - Support for IDN domain names
+
+# Build instructions
+
+## Requirements
+
+Required packages for building
+
+ * web-ext from npm
+ * GNU make (tested on ubuntu 18.04)
+ * rsvg-convert from `librsvg2-bin`
+ * zip (info zip)
+
+For testing:
+
+ * nodejs for testing
+
+## Building
+
+Generate zip/xpi
+
+```
+make build
+```
+
+Start the extension in a local browser session
+
+```
+make run
+```
+
+Run unittests
+
+```
+make test
+```
