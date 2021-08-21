@@ -81,7 +81,16 @@ browser.storage.local.get({'current-tab': tabs[0].id}).then((result) => {
 
 // tab matching and closing functions
 
-function fetchTabs(args, fn) {
+function withCurrentTab() {
+  return browser.tabs.query({currentWindow: true, active: true}).then((currentTabs) => {
+    if (!currentTabs.length) {
+      return null;
+    }
+    return currentTabs[0];
+  });
+}
+
+function fetchTabs(args) {
   let query = {};
   if (!args.all_windows)
     query['currentWindow'] = true;
@@ -407,17 +416,17 @@ function setSuggestions(hints) {
 }
 
 function setURLSuggestions(title) {
-  browser.tabs.query({currentWindow: true, active: true}).then((tab) => {
-    if (tab.length) {
+  withCurrentTab().then((tab) => {
+    if (tab != null) {
       if (title) {
         // split suggestions into chunks based on separator like chars
-        let parts = tab[0].title.split(/\s*[-|:,;+\u00B7\t\n\r&()\[\]]\s*/);
+        let parts = tab.title.split(/\s*[-|:,;+\u00B7\t\n\r&()\[\]]\s*/);
         setSuggestions(parts.filter(x => {
           return x && x.length > 0;
         }))
         return;
       } else {
-        let domain = util.domainForUrl(tab[0].url, document)
+        let domain = util.domainForUrl(tab.url, document)
         if (domain) {
           let suggestions = [domain];
           let decodedDomain = punycode.toUnicode(domain)
