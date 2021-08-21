@@ -67,6 +67,7 @@ tabs.forEach((this_tab) => { this_tab.addEventListener("click", (e) => {
       document.querySelector("#" + id).style.display=null;
     });
   }
+  update_summary_immediate(); // ensure state-based summary stuff is immediately hidden
   update_summary();
 })});
 
@@ -322,7 +323,7 @@ function notFoundRow() {
   return tr;
 }
 
-function update_summary() {
+function update_summary_immediate() {
   let args = get_args();
   if (args.match || args.by_duplicate) {
     summary.style.display = "inline";
@@ -377,14 +378,27 @@ function update_summary() {
   }
 }
 
+// debounce update_summary so we can call it aggresively without
+// chugging
+let update_summary_timer = null;
+function update_summary() {
+  clearTimeout(update_summary_timer);
+  update_summary_timer = setTimeout(() => {
+    update_summary_immediate()
+  }, 100);
+}
+
 // initialise state
-update_summary();
+update_summary_immediate();
 // update summary on all input updates
 [matching, case_sensitive, not_pinned, not_current, all_windows].forEach((inp) => {
   // load checkboxes from storage
   if (inp.type == 'checkbox') {
     browser.storage.local.get({[inp.id]: inp.checked}).then((result) => {
+      let update = inp.checked != result[inp.id];
       inp.checked = result[inp.id];
+      if (update)
+        update_summary();
     });
   }
   inp.addEventListener("input", (e) => {
@@ -469,4 +483,5 @@ let values = {'pinned-tab-handling-selection': pinned_policy};
 browser.storage.local.get(values).then((result) => {
   pinned_policy = result['pinned-tab-handling-selection'];
   document.querySelector("#pinned-panel").style.display = pinned_policy == "ask" ? null : "none";
+  update_summary();
 });
