@@ -6,6 +6,7 @@ var pinned_policy_warning = document.querySelector('#pinned-policy-warning');
 var pinned_policy = "preserve";
 var case_sensitive = document.querySelector('#case-sensitive');
 var all_windows = document.querySelector('#all-windows');
+var not_current = document.querySelector('#not-current');
 
 var suggestions_panel = document.querySelector('#suggestions-panel');
 suggestions_panel.style.display = "none";
@@ -94,13 +95,13 @@ function fetchTabs(args) {
   let query = {};
   if (!args.all_windows)
     query['currentWindow'] = true;
-  return browser.tabs.query(query);
+  return Promise.all([withCurrentTab(), browser.tabs.query(query)])
 }
 
 function match_duplicates(args) {
 
   // get current window with tabs
-  return fetchTabs(args).then((tabs) => {
+  return fetchTabs(args).then(([currentTab, tabs]) => {
 
     let seen = {};
     let matched = [];
@@ -112,7 +113,15 @@ function match_duplicates(args) {
         if (t.pinned) {
           args.pinned_match_count += 1;
         }
-        if (args.n_pinned && t.pinned) {
+
+        let isCurrent = currentTab && (t.active && t.id == currentTab.id);
+        if (args.n_current && isCurrent) {
+          // swap current tab with last seen tab and kill
+          // last seen if we are preserving current
+          let prev = seen[key];
+          seen[key] = t;
+          matched.push(prev);
+        } else if (args.n_pinned && t.pinned) {
           // this is pinned, check the stashed one
           // if this isn't then discard it instead
           if (!seen[key].pinned) {
@@ -145,8 +154,10 @@ function match_tabs(args) {
   if (!args.sensitive)
     match = match.toLowerCase();
 
-  // get current window with tabs
-  return fetchTabs(args).then((tabs) => {
+  // Promise.all resolves multiple promises before caling back:
+  // [0] get current tab for avoiding close of current tab query
+  // [1] and fetch tabs to search for matches
+  return fetchTabs(args).then(([currentTab, tabs]) => {
 
     let matched = [];
 
@@ -171,7 +182,10 @@ function match_tabs(args) {
         if (t.pinned)
           args.pinned_match_count += 1;
         if (!args.n_pinned || !t.pinned) {
-          matched.push(t);
+          let isCurrent = currentTab && (t.active && t.id == currentTab.id);
+          if (! args.n_current || !isCurrent) {
+            matched.push(t);
+          }
         }
       }
     }
@@ -195,6 +209,7 @@ function get_args() {
   return {
     match: matching.value,
     n_pinned: n_pinned,
+    n_current: not_current.checked,
     all_windows: all_windows.checked,
     by_title: by_title,
     by_duplicate: by_duplicate,
@@ -365,7 +380,7 @@ function update_summary() {
 // initialise state
 update_summary();
 // update summary on all input updates
-[matching, case_sensitive, not_pinned, all_windows].forEach((inp) => {
+[matching, case_sensitive, not_pinned, not_current, all_windows].forEach((inp) => {
   // load checkboxes from storage
   if (inp.type == 'checkbox') {
     browser.storage.local.get({[inp.id]: inp.checked}).then((result) => {

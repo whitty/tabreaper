@@ -74,6 +74,11 @@
     "description": "query if pinned tabs should be closed (if pin settings is ask)"
   },
 
+  "dont-close-current-tab": {
+    "message": "Don't close current tab",
+    "description": "query if current tab should be closed if it matches search"
+  },
+
   "no-duplicates-found": {
     "message": "No duplicates found",
     "description": "Report indicating no duplicates found to close."
