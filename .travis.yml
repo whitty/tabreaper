@@ -1,7 +1,7 @@
 dist: xenial
 language: node_js
 node_js:
-  - "10"
+  - "14"
 
 before_install:
   - sudo apt-get install -y zip librsvg2-bin
