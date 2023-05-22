@@ -1,5 +1,8 @@
 .PHONY: all icons code test
 
+PATH := node_modules/.bin:$(PATH)
+export PATH
+
 all: icons code
 
 icons:						\
@@ -20,11 +23,11 @@ icons/tab-reap-dark-%.png: icons/tab-reap-dark.svg
 run: icons
 	web-ext run $(addprefix --firefox ,$(WEB_EXT_FIREFOX))
 
-NODE := $(firstword $(shell which nodejs) $(shell which node))
+NODE := node
 
 test: icons
 	@node -r jsdom </dev/null 2>/dev/null || npm install
-	$(NODE) test/util_test.js
+	node test/util_test.js
 	$(foreach js,$(wildcard *.json _locales/*/*.json),node $(js) && ) true
 	web-ext lint
 
@@ -45,3 +48,11 @@ export:
 	git archive -o tabreaper_$$(git describe).tar --format=tar HEAD
 	git submodule foreach 'git archive --prefix=$$sm_path/ -o $$toplevel/x.tar HEAD && tar --catenate -f $$toplevel/tabreaper_$$(git -C $$toplevel describe).tar $$toplevel/x.tar && rm $$toplevel/x.tar'
 	gzip -9 tabreaper_$$(git describe).tar
+
+.PHONY: build_env
+build_env:
+	npm --version || sudo apt -y install npm
+	sudo apt install -y librsvg2-bin zip
+	npm install node npm # install captive versions of node, npm
+	rm -f package-lock.json # reset package-lock.json
+	npm install
