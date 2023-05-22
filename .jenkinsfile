@@ -1,0 +1,3 @@
+@Library('scripts') _
+
+nodejs.build(os_versions: ['22.04'])
