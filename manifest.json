@@ -6,7 +6,6 @@
     }
   },
   "browser_action": {
-    "browser_style": true,
     "default_title": "Tab Reaper",
     "default_icon": "icons/tab-reap.svg",
     "theme_icons": [
