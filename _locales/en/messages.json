@@ -14,6 +14,11 @@
     "description": "action button to do the closing"
   },
 
+  "gather-to-end-button": {
+    "message": "Gather tabs to end",
+    "description": "action button to gather matching tabs at end of this window"
+  },
+
   "closeButtonTooltip": {
     "message": "Click to close this tab",
     "description": "instruction on inline single tab close button"
