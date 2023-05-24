@@ -13,6 +13,7 @@ suggestions_panel.style.display = "none";
 
 // Output elements
 var close_button = document.querySelector('#close-button');
+var gather_button = document.querySelector('#gather-to-end-button');
 var match_count = document.querySelector('#match-count');
 var summary = document.querySelector('#summary');
 var table = document.querySelector('#summary-table');
@@ -242,6 +243,48 @@ function close_matched() {
   }
 }
 
+function move_tabs(ids, window_id = null) {
+  if (ids.length > 0) {
+    if (!debug_mode) {
+      let window_args = {index: -1}
+      if (window_id)
+        window_args.windowId = window_id
+      let result = browser.tabs.move(ids, window_args)
+      result.then((t) => {
+        update_summary();
+      });
+    }
+  }
+}
+
+function gather_matched(new_window = false) {
+  let args = get_args();
+  if (args.match || args.by_duplicate) {
+    args.n_pinned = true // don't gather pinned tabs
+    args.n_current = false // move current tab if it matches
+    match_tabs(args).then((matched) => {
+      let ids = matched.map((t) => {
+        if (debug_mode) {
+          console.log("gathered tab: " + t.url);
+        }
+        return t.id;
+      });
+      if (new_window) {
+        let first = ids[0]
+        ids = ids.slice(1)
+        browser.windows.create({tabId: first}).then((w) => {
+          move_tabs(ids, w.id)
+        })
+      } else {
+        move_tabs(ids)
+      }
+      matching.value = "";
+      matching.focus();
+      update_summary();
+    });
+  }
+}
+
 function applyHighlights(highlights, node) {
   highlights.forEach(function(h) {
     if (h[1]) {
@@ -332,6 +375,7 @@ function update_summary_immediate() {
 
     match_tabs(args).then((matched) => {
       close_button.disabled = matched.length == 0;
+      gather_button.disabled = matched.length == 0;
       match_count.textContent = matched.length;
       while (table.firstChild)
         table.removeChild(table.firstChild);
@@ -368,6 +412,7 @@ function update_summary_immediate() {
   } else {
     summary.style.display = "none";
     close_button.disabled = true;
+    gather_button.disabled = true;
     no_duplicates.style.display = "none";
 
     if (args.by_duplicate) {
@@ -412,6 +457,10 @@ update_summary_immediate();
 
 close_button.addEventListener("click", (e) => {
   close_matched();
+});
+
+gather_button.addEventListener("click", (e) => {
+  gather_matched();
 });
 
 
