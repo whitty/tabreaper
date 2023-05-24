@@ -375,7 +375,11 @@ function update_summary_immediate() {
 
     match_tabs(args).then((matched) => {
       close_button.disabled = matched.length == 0;
+
+      let gather_key = args.all_windows ?  "gather-to-this-window-button" : "gather-to-end-button"
+      gather_button.innerText = browser.i18n.getMessage(gather_key);
       gather_button.disabled = matched.length == 0;
+
       match_count.textContent = matched.length;
       while (table.firstChild)
         table.removeChild(table.firstChild);
