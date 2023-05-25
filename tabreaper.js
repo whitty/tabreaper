@@ -276,7 +276,13 @@ function gather_matched(new_window = false) {
           move_tabs(ids, w.id)
         })
       } else {
-        move_tabs(ids)
+        if (args.all_windows) {
+          browser.windows.getCurrent().then((w) => {
+            move_tabs(ids, w.id)
+          })
+        } else {
+          move_tabs(ids)
+        }
       }
       matching.value = "";
       matching.focus();
