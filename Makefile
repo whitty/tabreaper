@@ -18,7 +18,7 @@ icons/tab-reap-dark-%.png: icons/tab-reap-dark.svg
 
 .PHONY: run
 run: icons
-	web-ext run
+	web-ext run $(addprefix --firefox ,$(WEB_EXT_FIREFOX))
 
 NODE := $(firstword $(shell which nodejs) $(shell which node))
 
