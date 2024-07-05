@@ -20,6 +20,37 @@
     });
   }
 
+  // Try to work with regexes
+  exports.splitReMatchForHighlight = function(text, match) {
+    let re = RegExp(match, 'g');
+
+    let ret = [];
+
+    let m;
+    let last = 0;
+    while ((m = re.exec(text)) !== null) {
+
+      if (m.index > last) {
+        ret.push([m.input.slice(last, m.index), false]);
+      }
+
+      let matched = m.toString();
+      // if we match an empty fragment exec won't move on
+      if (matched.length == 0) {
+        break;
+      }
+
+      ret.push([matched, true]);
+      last = m.index + matched.length;
+    }
+
+    if (last < text.length) {
+      ret.push([text.slice(last), false]);
+    }
+
+    return ret;
+  }
+
   function removeLastSubstring(s, substr) {
     let pos = s.lastIndexOf(substr)
     if (pos >= 0) {

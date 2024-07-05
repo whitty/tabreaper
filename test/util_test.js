@@ -18,6 +18,43 @@ assert.deepEqual([['The r', false],
                   ['.', false]],
              util.splitSimpleMatchForHighlight('The rain in Spain falls mainly on the plain.', 'ain'));
 
+assert.deepEqual([['The r', false],
+                  ['ain', true],
+                  [' in Sp', false],
+                  ['ain', true],
+                  [' falls m', false],
+                  ['ain', true],
+                  ['ly on the pl', false],
+                  ['ain', true],
+                  ['.', false]],
+             util.splitReMatchForHighlight('The rain in Spain falls mainly on the plain.', 'ain'));
+
+assert.deepEqual([['The r', false],
+                  ['ain', true],
+                  [' in Sp', false],
+                  ['ain', true],
+                  [' falls m', false],
+                  ['ain', true],
+                  ['ly on the pl', false],
+                  ['ain', true],
+                  ['.', false]],
+             util.splitReMatchForHighlight('The rain in Spain falls mainly on the plain.', 'a.n'));
+
+// Special case where match is empty just return
+assert.deepEqual([['The rain in Spain falls mainly on the plain.', false]],
+                 util.splitReMatchForHighlight('The rain in Spain falls mainly on the plain.', ' *'));
+
+assert.deepEqual([['The', false], [' ', true ],
+                  ['rain', false], [' ', true ],
+                  ['in', false], [' ', true ],
+                  ['Spain', false], [' ', true ],
+                  ['falls', false], [' ', true ],
+                  ['mainly', false], [' ', true ],
+                  ['on', false], [' ', true ],
+                  ['the', false], [' ', true ],
+                  ['plain.', false]],
+                 util.splitReMatchForHighlight('The rain in Spain falls mainly on the plain.', ' +'));
+
 // case sensitivity
 assert.deepEqual([['', false], ['a', true], ['bcdA', false]],
                  util.splitSimpleMatchForHighlight('abcdA', 'a', true));
