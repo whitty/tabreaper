@@ -10,7 +10,7 @@ html,
 body {
   background: transparent;
   box-sizing: border-box;
-  color: #222426;
+  color: var(--in-content-text-color);
   cursor: default;
   display: flex;
   flex-direction: column;
@@ -65,8 +65,7 @@ button.browser-style::-moz-focus-inner {
 
 /* Dropdowns */
 select.browser-style {
-  background-color: #fbfbfb;
-  border: 1px solid #b1b1b1;
+  border: 1px solid;
   box-shadow: 0 0 0 0 transparent;
   font: caption;
   height: 24px;
