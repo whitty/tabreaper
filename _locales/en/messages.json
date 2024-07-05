@@ -74,6 +74,11 @@
     "description": "The form label asking if matches should be case sensitive."
   },
 
+  "use-regex-title-match-label": {
+    "message": "Use regular expressions (regex)",
+    "description": "The form label asking if matches should use regular expression matching (regex)."
+  },
+
   "all-windows-match-label": {
     "message": "Look through all windows",
     "description": "Query asking to search all windows (active) or just the current window"

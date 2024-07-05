@@ -19,7 +19,7 @@
         <div class="panel-section-tabs-separator"></div>
         <div class="panel-section-tabs-button browser-style browser-styleed" show="title-form" id="title-form-tab" i18n-key="main-tab-title">Title</div>
         <div class="panel-section-tabs-separator"></div>
-        <div class="panel-section-tabs-button browser-style browser-styleed" hide="matching-panel gather-to-end-button" id="duplicates-form-tab" i18n-key="main-tab-duplicates">Duplicates</div>
+        <div class="panel-section-tabs-button browser-style browser-styleed" hide="matching-panel gather-to-end-button regex-panel" id="duplicates-form-tab" i18n-key="main-tab-duplicates">Duplicates</div>
       </div>
 
       <div class="panel-section panel-section-formElements browser-style">
@@ -39,6 +39,10 @@
 
         <div id="title-form" class="panel-formElements-item panel-formElements-item-grouped">
           <input type="checkbox" id="case-sensitive"></input><label for="case-sensitive" i18n-key="case-sensitive-title-match-label">Case sensitive title match</label>
+        </div>
+
+        <div id="regex-panel" class="panel-formElements-item panel-formElements-item-grouped">
+          <input type="checkbox" id="use-regex"></input><label for="use-regex" i18n-key="use-regex-title-match-label">Use regular expressions (regex)</label>
         </div>
 
         <div id="all-windows-panel" class="panel-formElements-item panel-formElements-item-grouped">

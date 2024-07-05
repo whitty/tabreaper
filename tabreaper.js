@@ -5,6 +5,7 @@ var not_pinned = document.querySelector('#not-pinned');
 var pinned_policy_warning = document.querySelector('#pinned-policy-warning');
 var pinned_policy = "preserve";
 var case_sensitive = document.querySelector('#case-sensitive');
+var use_regex = document.querySelector('#use-regex');
 var all_windows = document.querySelector('#all-windows');
 var not_current = document.querySelector('#not-current');
 
@@ -169,12 +170,16 @@ function match_tabs(args) {
       if (!args.sensitive)
         val = val.toLowerCase();
 
+      function do_match(val, match) {
+        return args.regex ? val.match(match) : val.includes(match)
+      }
+
       // normal match
-      let foundMatch = val.includes(match);
+      let foundMatch = do_match(val, match);
 
       // try convert a punycode domain to match
       if (!foundMatch && !args.by_title) {
-        foundMatch = punyEquivalent(val).includes(match);
+        foundMatch = do_match(punyEquivalent(val), match);
         if (foundMatch) {
           unicode_warning.style.display = "inline";
         }
@@ -215,7 +220,8 @@ function get_args() {
     all_windows: all_windows.checked,
     by_title: by_title,
     by_duplicate: by_duplicate,
-    sensitive: by_title ? case_sensitive.checked : true,
+    sensitive: by_title ? (case_sensitive.checked || use_regex.checked) : true,
+    regex: use_regex.checked,
     pinned_match_count: 0,
   };
 }
@@ -354,7 +360,9 @@ function summaryRow(tab, args) {
 
   let entry = document.createElement('span');
   if (args.by_title) {
-    applyHighlights(util.splitSimpleMatchForHighlight(tab.title, args.match, args.sensitive), entry);
+    applyHighlights(args.regex
+                    ? util.splitReMatchForHighlight(tab.title, args.match)
+                    : util.splitSimpleMatchForHighlight(tab.title, args.match, args.sensitive), entry);
   } else {
     entry.appendChild(document.createTextNode(tab.title));
   }
@@ -373,6 +381,8 @@ function notFoundRow() {
 }
 
 function update_summary_immediate() {
+  case_sensitive.disabled = use_regex.checked;
+
   let args = get_args();
   if (args.match || args.by_duplicate) {
     summary.style.display = "inline";
@@ -446,7 +456,7 @@ function update_summary() {
 // initialise state
 update_summary_immediate();
 // update summary on all input updates
-[matching, case_sensitive, not_pinned, not_current, all_windows].forEach((inp) => {
+[matching, case_sensitive, use_regex, not_pinned, not_current, all_windows].forEach((inp) => {
   // load checkboxes from storage
   if (inp.type == 'checkbox') {
     browser.storage.local.get({[inp.id]: inp.checked}).then((result) => {
