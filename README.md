@@ -14,6 +14,7 @@ Features:
  - Close by Title
  - Preserve your pinned tabs
  - Choose case sensitivity
+ - Search by regex
  - Close individual tabs from the list
  - Close duplicate tabs
  - Support for IDN domain names
