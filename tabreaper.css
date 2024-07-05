@@ -110,7 +110,7 @@ body {
 }
 
 #pinned-policy-warning.highlight {
-  color: red;
+  color: var(--warning-color, red);
 }
 
 span.avoidwrap {
@@ -122,4 +122,24 @@ span.avoidwrap {
 }
 #unicode-warning p {
   font-size: smaller;
+}
+
+@media (prefers-color-scheme: dark) {
+
+.panel-section-tabs {
+  color: var(--color-gray-05);
+}
+
+.panel-section-tabs-button:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.panel-section-tabs-button:hover:active {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.panel-section-tabs-separator {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
 }
