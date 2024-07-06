@@ -28,6 +28,7 @@
 
     let m;
     let last = 0;
+    let count = 0;
     while ((m = re.exec(text)) !== null) {
 
       if (m.index > last) {
@@ -42,6 +43,11 @@
 
       ret.push([matched, true]);
       last = m.index + matched.length;
+
+      // Ensure we can't accidentally loop forever loop no more than
+      // the length of the input string (optional matching could cause problems)
+      if (++count > text.length)
+        break;
     }
 
     if (last < text.length) {
