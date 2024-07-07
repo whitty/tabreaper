@@ -1,27 +1,25 @@
 body {
-  width: 35rem;
+  width: min(40rem, 800px);
+  max-height: 600px;
   overflow-x: hidden;
   overflow-y: hidden;
+  color: var(--in-content-text-color);
 }
 
 #match-count {
   margin: 4px;
-}
-
-#summary-scrollbox {
-  max-height: 22rem;
-  max-width: 35rem;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  margin-bottom: 4px;
+  flex: none;
 }
 
 #summary-table {
-  width: 30rem;
 }
 
 #summary {
-  margin-top: 12px
+  min-height: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin-bottom: 12px;
+  margin-right: 1em;
 }
 
 #summary-table .highlight {
@@ -46,7 +44,6 @@ body {
 /* space for icon + close-icon */
 .summary-close-icon-switcher {
   float: left;
-/*  margin: 4px; */
   display: block;
   position: relative;
 }
@@ -74,6 +71,10 @@ body {
   margin: 4px;
 }
 
+.summary-icon {
+  max-width: 16px;
+}
+
 /* from chrome:/skins/global/close-icon.css */
 /* otherwise the close.svg looks black */
 .summary-close {
@@ -84,10 +85,14 @@ body {
 }
 
 .summary-cell {
-  overflow-x: hidden;
+  overflow-x: clip;
   text-overflow: clip ellipsis;
   display: table-cell;
   vertical-align: middle;
+}
+
+.summary-cell-url {
+  width: 100%;
 }
 
 .summary-row-elipsis {
@@ -102,11 +107,6 @@ body {
 
 #close-button {
   margin-top: 4px;
-}
-
-/* smoosh the checkboxes together */
-.panel-formElements-item-grouped {
-  margin-bottom: 0px;
 }
 
 #pinned-policy-warning.highlight {
@@ -124,22 +124,87 @@ span.avoidwrap {
   font-size: smaller;
 }
 
-@media (prefers-color-scheme: dark) {
-
-.panel-section-tabs {
-  color: var(--color-gray-05);
+#matching-panel {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
 }
 
-.panel-section-tabs-button:hover {
-  background-color: rgba(255, 255, 255, 0.06);
+#matching-panel label {
+  flex: 0 0 auto;
+  padding-right: 0.5em;
+}
+#matching-panel input {
+  flex: 1 0 auto;
 }
 
-.panel-section-tabs-button:hover:active {
-  background-color: rgba(255, 255, 255, 0.1);
+.popup-body {
+  flex: 0 0 auto;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  max-height: 600px;
 }
 
-.panel-section-tabs-separator {
-  background-color: rgba(255, 255, 255, 0.1);
+.popup-tab-panel {
+  flex: 0 0 auto; /* Fixed within body */
+  display: flex;
+  flex-flow: row nowrap;
 }
 
+.popup-tabs-button {
+  flex: 1 1 auto;
+  height: 100%;
+  margin: 0 -1px;
+  padding: 12px;
+  text-align: center;
+}
+
+.popup-tabs-button:hover {
+  background-color: light-dark(rgba(0, 0, 0, 0.06), rgba(255, 255, 255, 0.06));
+}
+
+.popup-tabs-button:hover:active {
+  background-color: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
+}
+
+/* TODO - define colour scheme */
+.popup-tabs-button.selected {
+  box-shadow: 0 -1px 0 #0670cc inset, 0 -4px 0 #0996f8 inset;
+  color: #0996f8;
+}
+
+.popup-tabs-button.selected:hover {
+  /* color: #0670cc; */
+}
+
+.popup-tabs-separator {
+  background-color: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
+  width: 1px;
+  z-index: 100;
+}
+
+.popup-header > .text-header {
+  align-self: center;
+  font-size: 1.385em;
+  font-weight: lighter;
+}
+
+.popup-header {
+  border-bottom: 1px solid light-dark(rgba(0, 0, 0, 0.15), rgba(255, 255, 255, 0.1));
+  padding: 1em;
+}
+
+.popup-fixed-panel {
+  flex: 0 0 auto;
+  padding: 0.5em 1em 0.5em 1em;
+}
+
+.popup-panel {
+  flex: 1 1 auto;
+  padding: 0.5em 1em 0.5em 1em;
+}
+
+.popup-end-panel {
+  order: 10;
 }

@@ -4,87 +4,96 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="chrome://global/skin/in-content/common.css"/>
-    <link rel="stylesheet" href="extension.css"/>
     <link rel="stylesheet" href="tabreaper.css"/>
   </head>
 
   <body>
-    <div class="panel">
-      <div class="panel-section panel-section-header">
-        <div class="text-section-header">Tab Reaper</div>
+
+    <div class="popup-body">
+      <div class="popup-fixed-panel">
+        <div class="text-header">Tab Reaper</div>
       </div>
 
-      <div class="panel-section panel-section-tabs">
-        <!-- NOTE broken CSS inserts  inside 'selected' to give select and ed -->
-        <div class="panel-section-tabs-button selected" show="suggestions-panel" id="url-form-tab" i18n-key="main-tab-url">URL</div>
-        <div class="panel-section-tabs-separator"></div>
-        <div class="panel-section-tabs-button" show="title-form" id="title-form-tab" i18n-key="main-tab-title">Title</div>
-        <div class="panel-section-tabs-separator"></div>
-        <div class="panel-section-tabs-button" hide="matching-panel gather-to-end-button regex-panel" id="duplicates-form-tab" i18n-key="main-tab-duplicates">Duplicates</div>
+      <div class="popup-tab-panel">
+
+        <div class="popup-tabs-button selected" show="suggestions-panel" id="url-form-tab" i18n-key="main-tab-url">URL</div>
+        <div class="popup-tabs-separator"></div>
+        <div class="popup-tabs-button" show="title-form" id="title-form-tab" i18n-key="main-tab-title">Title</div>
+        <div class="popup-tabs-separator"></div>
+        <div class="popup-tabs-button" hide="matching-panel gather-to-end-button regex-panel" id="duplicates-form-tab" i18n-key="main-tab-duplicates">Duplicates</div>
+
       </div>
 
-      <div class="panel-section panel-section-formElements ">
+      <div class="popup-fixed-panel popup-query">
 
-        <div id="matching-panel" class="panel-formElements-item">
+        <div id="matching-panel" class="popup-query-panel">
           <label for="matching-url" i18n-key="search-query-prompt">Match:</label>
           <input type="text" placeholder="Close tabs matching" id="matching-url" autofocus/>
         </div>
 
-        <div id="no-duplicates" class="panel-formElements-item">
-          <label for="no-duplicates-found" i18n-key="no-duplicates-found">No duplicates found</label>
-        </div>
+      </div>
 
-        <div id="suggestions-panel" class="panel-formElements-item">
-          <label for="autofill-suggestions" i18n-key="search-query-suggestion-label">Suggested queries:</label> <span id="autofill-suggestions"/>
-        </div>
+      <div class="popup-fixed-panel" id="no-duplicates">
+        <label for="no-duplicates-found" i18n-key="no-duplicates-found">No duplicates found</label>
+      </div>
 
-        <div id="title-form" class="panel-formElements-item panel-formElements-item-grouped">
+      <div class="popup-fixed-panel" id="suggestions-panel">
+        <label for="autofill-suggestions" i18n-key="search-query-suggestion-label">Suggested queries:</label> <span id="autofill-suggestions"/>
+      </div>
+
+      <div class="popup-fixed-panel popup-options">
+
+        <div id="title-form" class="popup-options-item">
           <input type="checkbox" id="case-sensitive"></input><label for="case-sensitive" i18n-key="case-sensitive-title-match-label">Case sensitive title match</label>
         </div>
 
-        <div id="regex-panel" class="panel-formElements-item panel-formElements-item-grouped">
+        <div id="regex-panel" class="popup-options-item">
           <input type="checkbox" id="use-regex"></input><label for="use-regex" i18n-key="use-regex-title-match-label">Use regular expressions (regex)</label>
         </div>
 
-        <div id="all-windows-panel" class="panel-formElements-item panel-formElements-item-grouped">
+        <div id="all-windows-panel" class="popup-options-item">
           <input type="checkbox" id="all-windows"></input><label for="all-windows" i18n-key="all-windows-match-label">Look through all windows</label>
         </div>
 
-        <div id="current-panel" class="panel-formElements-item panel-formElements-item-grouped">
+        <div id="current-panel" class="popup-options-item">
           <input type="checkbox" id="not-current" checked></input><label for="not-current" i18n-key="dont-close-current-tab">Don't close current tab</label>
         </div>
 
-        <div id="pinned-panel" class="panel-formElements-item panel-formElements-item-grouped">
+        <div id="pinned-panel" class="popup-options-item">
           <input type="checkbox" id="not-pinned" checked></input><label for="not-pinned" i18n-key="dont-close-pinned-tabs">Don't close pinned tabs</label>
-        </div>
-
-        <div class="panel-formElements-item" id="summary">
-          <label for="match-count"><span i18n-key="matched-summary-prefix">Matched</span><span id="match-count">0</span><span i18n-key="matched-summary-suffix">tabs:</span><span id="pinned-policy-warning"/></label>
-          <div id="summary-scrollbox">
-            <div id="summary-table">
-              <div id="summary-body"/>
-            </div>
-          </div>
-        </div>
-
-        <div class="panel-formElements-item">
-          <hbox align="center" flex="1">
-            <button class="" id="close-button" i18n-key="close-button">Close them!</button>
-            <button class="" id="gather-to-end-button" i18n-key="gather-to-end-button">Gather them!</button>
-          </hbox>
-        </div>
-
-        <div id="unicode-warning" class="panel-formElements-item panel-formElements-item-grouped">
-          <p> <span i18n-key="unicode-failure-warning-prefix">I'm trying to match unicode searches and suggestions.  If its not working for you please</span> <a href="http://github.com/whitty/tabreaper/issues" i18n-key="unicode-failure-warning-link-text">submit a bug</a> <span i18n-key="unicode-failure-warning-suffix">with examples</span></p>
         </div>
 
       </div>
 
+      <div class="popup-fixed-panel popup-buttons popup-end-panel" id="close-panel">
+
+        <!-- TODO - remove this??? -->
+        <hbox align="center" flex="1">
+          <button id="close-button" i18n-key="close-button">Close them!</button>
+          <button id="gather-to-end-button" i18n-key="gather-to-end-button">Gather them!</button>
+        </hbox>
+
+      </div>
+
+      <div id="unicode-warning" class="popup-fixed-panel popup-end-panel">
+        <p> <span i18n-key="unicode-failure-warning-prefix">I'm trying to match unicode searches and suggestions.  If its not working for you please</span> <a href="http://github.com/whitty/tabreaper/issues" i18n-key="unicode-failure-warning-link-text">submit a bug</a> <span i18n-key="unicode-failure-warning-suffix">with examples</span></p>
+      </div>
+
+      <div class="popup-fixed-panel" id="summary-label">
+        <label for="match-count" id="summary-label"><span i18n-key="matched-summary-prefix">Matched</span><span id="match-count">0</span><span i18n-key="matched-summary-suffix">tabs:</span><span id="pinned-policy-warning"/></label>
+      </div>
+
+      <div class="popup-panel popup-summary" id="summary">
+        <div id="summary-table">
+          <div id="summary-body"></div>
+        </div>
+      </div>
+
     </div>
 
-  <script src="util.js"></script>
-  <script src="punycode.js"></script>
-  <script src="tabreaper.js"></script>
-</body>
+    <script src="util.js"></script>
+    <script src="punycode.js"></script>
+    <script src="tabreaper.js"></script>
+  </body>
 
 </html>

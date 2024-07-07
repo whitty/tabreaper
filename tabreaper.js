@@ -18,6 +18,8 @@ var gather_button = document.querySelector('#gather-to-end-button');
 var match_count = document.querySelector('#match-count');
 var summary = document.querySelector('#summary');
 var table = document.querySelector('#summary-table');
+var summary_label = document.querySelector('#summary-label');
+var close_panel = document.querySelector('#close-panel');
 var no_duplicates = document.querySelector('#no-duplicates');
 var unicode_warning = document.querySelector('#unicode-warning');
 
@@ -33,7 +35,7 @@ util.applyI18N(document)
 // UI tabs handling
 
 // switch tabs on select
-var tabs = document.querySelectorAll('.panel-section-tabs-button');
+var tabs = document.querySelectorAll('.popup-tabs-button');
 tabs.forEach((this_tab) => { this_tab.addEventListener("click", (e) => {
   tabs.forEach((tab) => {
     tab.classList.remove("selected");
@@ -368,7 +370,7 @@ function summaryRow(tab, args) {
   }
   entry.setAttribute('title', tab.url)
   entry.ondblclick = () => { focusTab(tab) }
-  entry.setAttribute('class', 'summary-cell')
+  entry.setAttribute('class', 'summary-cell summary-cell-url')
   tr.appendChild(entry)
   return tr;
 }
@@ -386,6 +388,8 @@ function update_summary_immediate() {
   let args = get_args();
   if (args.match || args.by_duplicate) {
     summary.style.display = "inline";
+    summary_label.style.display = "inline";
+    close_panel.style.display = "inline";
     no_duplicates.style.display = "none";
     setSuggestions([])
 
@@ -408,6 +412,8 @@ function update_summary_immediate() {
       if (args.by_duplicate) {
         if (matched.length == 0) {
           summary.style.display = "none";
+          summary_label.style.display = "none";
+          close_panel.style.display = "none";
           close_button.disabled = true;
           no_duplicates.style.display = null;
         } else {
@@ -431,6 +437,8 @@ function update_summary_immediate() {
     });
   } else {
     summary.style.display = "none";
+    summary_label.style.display = "none";
+    close_panel.style.display = "none";
     close_button.disabled = true;
     gather_button.disabled = true;
     no_duplicates.style.display = "none";
