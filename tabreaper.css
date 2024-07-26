@@ -218,3 +218,11 @@ span.avoidwrap {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
 }
+
+#debug-text {
+  width: 100%;
+  height: 5em;
+  overflow-y: scroll;
+  overflow-x: scroll;
+  resize: none;
+}

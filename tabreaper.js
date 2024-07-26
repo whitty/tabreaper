@@ -9,6 +9,10 @@ var use_regex = document.querySelector('#use-regex');
 var all_windows = document.querySelector('#all-windows');
 var not_current = document.querySelector('#not-current');
 
+var debug_text = document.querySelector('#debug-text');
+var debug_box_enable = false;
+document.querySelector("#debug-panel").style.display = "none";
+
 var suggestions_panel = document.querySelector('#suggestions-panel');
 suggestions_panel.style.display = "none";
 
@@ -150,14 +154,26 @@ function punyEquivalent(url) {
   return u.protocol + "//" + punycode.toUnicode(u.host) + u.pathname + u.search + u.hash
 }
 
+var debug_text_str = "";
+
+function debugLog(...elems) {
+  if (debug_box_enable) {
+    let text = elems.map((x) => JSON.stringify(x)).join(" ");
+    debug_text_str += text + "\r\n";
+    debug_text.textContent = debug_text_str;
+  }
+}
+
 function match_tabs(args) {
 
   if (args.by_duplicate) {
     return match_duplicates(args)
   }
   let match = args.match;
+  debugLog("match request", args);
   if (!args.sensitive)
     match = match.toLowerCase();
+  debugLog("sense request", args);
 
   // Promise.all resolves multiple promises before caling back:
   // [0] get current tab for avoiding close of current tab query
@@ -173,7 +189,9 @@ function match_tabs(args) {
         val = val.toLowerCase();
 
       function do_match(val, match) {
-        return args.regex ? val.match(match) : val.includes(match)
+        let result = args.regex ? val.match(match) : val.includes(match)
+        debugLog("do_match", result, "val", val, "match", match);
+        return result;
       }
 
       // normal match
@@ -194,7 +212,11 @@ function match_tabs(args) {
           let isCurrent = currentTab && (t.active && t.id == currentTab.id);
           if (! args.n_current || !isCurrent) {
             matched.push(t);
+          } else {
+            debugLog("Ignoring current", val);
           }
+        } else {
+          debugLog("Ignoring pinned candidate", val);
         }
       }
     }
@@ -556,9 +578,14 @@ matching.addEventListener("keyup", (e) => {
 
 browser.tabs.onUpdated.addListener(update_summary);
 
-let values = {'pinned-tab-handling-selection': pinned_policy};
+let values = {
+  'pinned-tab-handling-selection': pinned_policy,
+  'debug-box-enable': debug_box_enable,
+};
 browser.storage.local.get(values).then((result) => {
   pinned_policy = result['pinned-tab-handling-selection'];
+  debug_box_enable = result['debug-box-enable'];
   document.querySelector("#pinned-panel").style.display = pinned_policy == "ask" ? null : "none";
+  document.querySelector("#debug-panel").style.display = debug_box_enable ? null : "none";
   update_summary();
 });

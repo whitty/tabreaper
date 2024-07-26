@@ -2,3 +2,8 @@
 :root {
   background-color: var(--in-content-box-background);
 }
+
+.low-priority {
+  font-size: smaller;
+  font-weight: lighter;
+}

@@ -13,3 +13,9 @@ document.querySelector("#pinned-tab-handling-selection").addEventListener("chang
     'pinned-tab-handling-selection': e.target.value
   });
 });
+
+document.querySelector("#debug-box-enable").addEventListener("change", (e) => {
+  browser.storage.local.set({
+    'debug-box-enable': e.target.checked
+  });
+});
